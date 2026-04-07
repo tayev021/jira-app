@@ -1,0 +1,50 @@
+name: jira-app
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:8
+    restart: always
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+  server:
+    container_name: server
+    depends_on:
+      - mongo
+    build:
+      context: ./server
+      target: development
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    volumes:
+      - './server:/app'
+      - '/app/node_modules'
+    environment:
+      NODE_ENV: docker
+      CHOKIDAR_USEPOLLING: true
+      ORIGIN: ${ORIGIN}
+      MONGO_URI: mongodb://${DB_USER}:${DB_PASSWORD}@mongo:${DB_PORT}/tasks?authSource=admin
+
+  client:
+    container_name: client
+    depends_on:
+      - server
+    build:
+      context: ./client
+      target: development
+    ports:
+      - '${CLIENT_PORT}:${CLIENT_PORT}'
+    volumes:
+      - './client:/app'
+      - '/app/node_modules'
+    environment:
+      CHOKIDAR_USEPOLLING: true
+      VITE_API_URL: ${VITE_API_URL}
+      CLIENT_PORT: ${CLIENT_PORT}
+
+volumes:
+  mongo_data:
