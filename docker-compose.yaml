@@ -26,6 +26,8 @@ services:
     environment:
       NODE_ENV: docker
       CHOKIDAR_USEPOLLING: true
+      SECRET: ${SECRET}
+      EXPIRES_IN_HOURS: ${EXPIRES_IN_HOURS}
       ORIGIN: ${ORIGIN}
       MONGO_URI: mongodb://${DB_USER}:${DB_PASSWORD}@mongo:${DB_PORT}/tasks?authSource=admin
 
