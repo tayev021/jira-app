@@ -1,4 +1,4 @@
-import { ErrorCode } from 'shared/types/ErrorCode';
+import { ErrorCode } from '../types/ErrorCode';
 
 export class AppError extends Error {
   status: number;
