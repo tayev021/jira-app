@@ -11,7 +11,7 @@ interface DefaultError extends AppError {
 }
 
 interface ValidationError extends AppError {
-  code: 'ERROR';
+  code: 'VALIDATION_ERROR';
   details: FieldValidationError[];
 }
 
