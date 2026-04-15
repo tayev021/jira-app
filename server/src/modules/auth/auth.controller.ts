@@ -5,7 +5,7 @@ import { getCookieOptions } from '../../shared/utils/getCookieOptions';
 
 class AuthController {
   me = (req: Request, res: Response) => {
-    res.status(200).json({ user: req.currentUser });
+    res.status(200).json({ success: true, data: { user: req.currentUser } });
   };
 
   signUp = catchAsync(async (req: Request, res: Response) => {
@@ -18,7 +18,7 @@ class AuthController {
     });
 
     res.cookie('token', token, getCookieOptions());
-    res.status(201).json({ user });
+    res.status(201).json({ success: true, data: { user } });
   });
 
   signIn = catchAsync(async (req: Request, res: Response) => {
@@ -26,12 +26,12 @@ class AuthController {
     const { user, token } = await authService.signIn({ email, password });
 
     res.cookie('token', token, getCookieOptions());
-    res.status(200).json({ user });
+    res.status(200).json({ success: true, data: { user } });
   });
 
   signOut = (req: Request, res: Response) => {
     res.clearCookie('token', getCookieOptions());
-    res.status(200).json({});
+    res.status(200).json({ success: true });
   };
 }
 

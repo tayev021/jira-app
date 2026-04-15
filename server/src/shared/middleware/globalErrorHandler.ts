@@ -9,6 +9,7 @@ export async function globalErrorHandler(
 ) {
   if (error instanceof ApiError) {
     res.status(error.status).json({
+      success: false,
       error: {
         code: error.code,
         message: error.message,
@@ -17,8 +18,12 @@ export async function globalErrorHandler(
     });
   } else {
     res.status(500).json({
-      code: 'INTERNAL',
-      message: 'Something went wrong',
+      success: false,
+      error: {
+        code: 'INTERNAL',
+        message: 'Something went wrong',
+        details: null,
+      },
     });
   }
 }
