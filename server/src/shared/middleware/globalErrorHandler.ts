@@ -1,13 +1,13 @@
-import { AppError } from '../errors';
+import { ApiError } from '../errors';
 import { NextFunction, Request, Response } from 'express';
 
 export async function globalErrorHandler(
-  error: AppError | Error,
+  error: ApiError | Error,
   req: Request,
   res: Response,
   _next: NextFunction
 ) {
-  if (error instanceof AppError) {
+  if (error instanceof ApiError) {
     res.status(error.status).json({
       error: {
         code: error.code,

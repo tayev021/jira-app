@@ -1,6 +1,6 @@
 import { ErrorCode } from '../types/ErrorCode';
 
-export class AppError extends Error {
+export class ApiError extends Error {
   status: number;
   code: ErrorCode;
   details?: unknown;
