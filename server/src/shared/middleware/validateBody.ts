@@ -16,7 +16,7 @@ export function validateBody<T extends ZodType>(schema: T) {
         message: issue.message,
       }));
 
-      throw new ValidationError('Failed to parse received data', fields);
+      throw new ValidationError('Validation failed', fields);
     }
 
     return next();
