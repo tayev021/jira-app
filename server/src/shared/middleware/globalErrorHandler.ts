@@ -9,9 +9,11 @@ export async function globalErrorHandler(
 ) {
   if (error instanceof AppError) {
     res.status(error.status).json({
-      code: error.code,
-      message: error.message,
-      details: error.details || null,
+      error: {
+        code: error.code,
+        message: error.message,
+        details: error.details || null,
+      },
     });
   } else {
     res.status(500).json({
