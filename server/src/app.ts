@@ -8,7 +8,7 @@ import { globalErrorHandler } from './shared/middleware/globalErrorHandler';
 const app = express();
 
 app.use(morgan('dev'));
-app.use(cors({ origin: process.env.ORIGIN }));
+app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 
