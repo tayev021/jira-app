@@ -1,4 +1,5 @@
 import type { ComponentProps, FC, ReactNode } from 'react';
+import { Heading } from './Heading';
 import { Field } from './Field';
 import { Label } from './Label';
 import { Input } from './Input';
@@ -12,6 +13,7 @@ type FormProps = {
 } & ComponentProps<'form'>;
 
 type FormComponent = FC<FormProps> & {
+  Heading: typeof Heading;
   Field: typeof Field;
   Label: typeof Label;
   Input: typeof Input;
@@ -33,6 +35,7 @@ const Form: FormComponent = ({ children, className = '', ...props }) => {
   );
 };
 
+Form.Heading = Heading;
 Form.Field = Field;
 Form.Label = Label;
 Form.Input = Input;
