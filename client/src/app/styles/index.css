@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #1868db;
+  --color-secondary: #123263;
+
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #e9f2fe;
+
+  --color-text-primary: #292a2e;
+}
+
+@layer base {
+  body {
+    width: 100vw;
+    min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    @apply text-sm leading-normal;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+  }
+}
