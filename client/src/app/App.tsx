@@ -1,3 +1,12 @@
+import { Providers } from './providers';
+import { AppRouter } from './routes';
+import { Toaster } from '../shared/ui/Toaster';
+
 export function App() {
-  return <div>Hello React!</div>;
+  return (
+    <Providers>
+      <AppRouter />
+      <Toaster />
+    </Providers>
+  );
 }
