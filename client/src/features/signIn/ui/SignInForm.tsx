@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { signInSchema, type SignInSchema } from '../model/signIn.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSignIn } from '../model/useSignIn';
+import { useSignIn } from '../hooks/useSignIn';
 import toast from 'react-hot-toast';
 import { ApiError } from '../../../shared/utils/ApiError';
 import { useQueryClient } from '@tanstack/react-query';
