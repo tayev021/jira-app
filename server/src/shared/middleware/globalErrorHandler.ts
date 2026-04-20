@@ -1,22 +1,29 @@
-import { AppError } from '../errors';
+import { ApiError } from '../errors';
 import { NextFunction, Request, Response } from 'express';
 
 export async function globalErrorHandler(
-  error: AppError | Error,
+  error: ApiError | Error,
   req: Request,
   res: Response,
   _next: NextFunction
 ) {
-  if (error instanceof AppError) {
+  if (error instanceof ApiError) {
     res.status(error.status).json({
-      code: error.code,
-      message: error.message,
-      details: error.details || null,
+      success: false,
+      error: {
+        code: error.code,
+        message: error.message,
+        details: error.details || null,
+      },
     });
   } else {
     res.status(500).json({
-      code: 'INTERNAL',
-      message: 'Something went wrong',
+      success: false,
+      error: {
+        code: 'INTERNAL',
+        message: 'Something went wrong',
+        details: null,
+      },
     });
   }
 }

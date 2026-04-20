@@ -1,6 +1,6 @@
-import { AppError } from './AppError';
+import { ApiError } from './ApiError';
 
-export class UnauthorizedError extends AppError {
+export class UnauthorizedError extends ApiError {
   constructor(
     message = 'You are not signed in! Please sign in to get access!'
   ) {

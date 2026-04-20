@@ -1,5 +1,5 @@
 import { userService } from '../user/user.service';
-import { AppError, UnauthorizedError } from '../../shared/errors';
+import { ApiError, UnauthorizedError } from '../../shared/errors';
 import bcrypt from 'bcryptjs';
 import { signToken } from '../../shared/utils/signToken';
 import { mapUser } from '../../shared/utils/mapUser';
@@ -14,7 +14,7 @@ class AuthService {
     const existingUser = await userService.getUserByEmail(userData.email);
 
     if (existingUser) {
-      throw new AppError(400, 'ERROR', `A user with this email already exists`);
+      throw new ApiError(400, 'ERROR', `A user with this email already exists`);
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
