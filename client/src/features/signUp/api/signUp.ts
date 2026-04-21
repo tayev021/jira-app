@@ -1,16 +1,12 @@
 import type { SignUpSchema } from '../model/signUp.schema';
 import type { User } from '../../../shared/types/User';
-import { API_URL } from '../../../shared/constants';
+import { api } from '../../../shared/api/api';
 import type { ApiResponse } from '../../../shared/types/ApiResponse';
 import { ApiError } from '../../../shared/utils/ApiError';
 
 export async function signUp(signUpData: SignUpSchema): Promise<User> {
-  const response = await fetch(`${API_URL}/auth/signup`, {
+  const response = await api('/auth/signup', {
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(signUpData),
   });
 
@@ -19,7 +15,7 @@ export async function signUp(signUpData: SignUpSchema): Promise<User> {
   try {
     json = await response.json();
   } catch {
-    throw new Error('Invalid JSON response');
+    throw new ApiError({ code: 'ERROR', message: 'Invalid JSON response' });
   }
 
   const result = json as ApiResponse<{ user: User }>;

@@ -10,29 +10,42 @@ class AuthController {
 
   signUp = catchAsync(async (req: Request, res: Response) => {
     const { name, surname, email, password } = req.body;
-    const { user, token } = await authService.signUp({
+    const { user, accessToken, refreshToken } = await authService.signUp({
       name,
       surname,
       email,
       password,
     });
 
-    res.cookie('token', token, getCookieOptions());
-    res.status(201).json({ success: true, data: { user } });
+    res.cookie('refreshToken', refreshToken, getCookieOptions());
+    res.status(201).json({ success: true, data: { user, accessToken } });
   });
 
   signIn = catchAsync(async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    const { user, token } = await authService.signIn({ email, password });
+    const { user, accessToken, refreshToken } = await authService.signIn({
+      email,
+      password,
+    });
 
-    res.cookie('token', token, getCookieOptions());
-    res.status(200).json({ success: true, data: { user } });
+    res.cookie('refreshToken', refreshToken, getCookieOptions());
+    res.status(200).json({ success: true, data: { user, accessToken } });
   });
 
-  signOut = (req: Request, res: Response) => {
-    res.clearCookie('token', getCookieOptions());
+  signOut = catchAsync(async (req: Request, res: Response) => {
+    await authService.signOut(req.cookies.refreshToken as string | undefined);
+
+    res.clearCookie('refreshToken', getCookieOptions());
     res.status(200).json({ success: true });
-  };
+  });
+
+  refresh = catchAsync(async (req: Request, res: Response) => {
+    const { accessToken } = await authService.refresh(
+      req.cookies.refreshToken as string | undefined
+    );
+
+    res.status(200).json({ success: true, data: { accessToken } });
+  });
 }
 
 export const authController = new AuthController();

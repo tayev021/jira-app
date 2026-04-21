@@ -7,6 +7,7 @@ import { authValidation } from './auth.validation';
 const authRouter = Router();
 
 authRouter.get('/me', protect, authController.me);
+authRouter.get('/refresh', authController.refresh);
 authRouter.post(
   '/signup',
   validateBody(authValidation.signUpSchema),

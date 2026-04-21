@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { AuthProvider } from './AuthProvider';
 import { QueryClientProvider } from './QueryClientProvider';
 
 interface ProvidersProps {
@@ -6,5 +7,9 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  return <QueryClientProvider>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </QueryClientProvider>
+  );
 }

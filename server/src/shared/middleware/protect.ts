@@ -1,21 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import { UnauthorizedError } from '../errors';
-import { verifyJwtAsync } from '../utils/verifyJwtAsync';
+import { verifyAccessToken } from '../utils/verifyAccessToken';
 import { User } from '../../modules/user/user.model';
 import { catchAsync } from '../utils/catchAsync';
 
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-      throw new UnauthorizedError();
+    if (!authHeader) {
+      throw new UnauthorizedError('No access token');
     }
 
+    const accessToken = authHeader.split(' ')[1];
     let decoded;
 
     try {
-      decoded = await verifyJwtAsync(token);
+      decoded = await verifyAccessToken(accessToken);
     } catch {
       throw new UnauthorizedError(
         'Your token is invalid or expired. Please sign in again'
