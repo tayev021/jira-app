@@ -1,19 +1,17 @@
 import type { User } from '../../../shared/types/User';
-import { API_URL } from '../../../shared/constants';
+import { api } from '../../../shared/api/api';
 import type { ApiResponse } from '../../../shared/types/ApiResponse';
 import { ApiError } from '../../../shared/utils/ApiError';
 
 export async function getMe(): Promise<User> {
-  const response = await fetch(`${API_URL}/auth/me`, {
-    credentials: 'include',
-  });
+  const response = await api('/auth/me');
 
   let json: unknown;
 
   try {
     json = await response.json();
   } catch {
-    throw new Error('Invalid JSON response');
+    throw new ApiError({ code: 'ERROR', message: 'Invalid JSON response' });
   }
 
   const result = json as ApiResponse<{ user: User }>;
