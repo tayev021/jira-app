@@ -1,8 +1,11 @@
 import { userService } from '../user/user.service';
 import { ApiError, UnauthorizedError } from '../../shared/errors';
 import bcrypt from 'bcryptjs';
-import { signToken } from '../../shared/utils/signToken';
+import { generateAccessToken } from '../../shared/utils/generateAccessToken';
+import { generateRefreshToken } from '../../shared/utils/generateRefreshToken';
 import { mapUser } from '../../shared/utils/mapUser';
+import { verifyRefreshToken } from '../../shared/utils/verifyRefreshToken';
+import { User } from '../user/user.model';
 
 class AuthService {
   signUp = async (userData: {
@@ -24,9 +27,12 @@ class AuthService {
       password: hashedPassword,
     });
 
-    const token = signToken({ id: user._id.toString() });
+    const accessToken = generateAccessToken({ id: user._id.toString() });
+    const refreshToken = generateRefreshToken({ id: user._id.toString() });
+    user.refreshToken = refreshToken;
+    await user.save();
 
-    return { user: mapUser(user), token };
+    return { user: mapUser(user), accessToken, refreshToken };
   };
 
   signIn = async (userData: { email: string; password: string }) => {
@@ -42,9 +48,57 @@ class AuthService {
       throw new UnauthorizedError('Invalid email or password');
     }
 
-    const token = signToken({ id: user._id.toString() });
+    const accessToken = generateAccessToken({ id: user._id.toString() });
+    const refreshToken = generateRefreshToken({ id: user._id.toString() });
+    user.refreshToken = refreshToken;
+    await user.save();
 
-    return { user: mapUser(user), token };
+    return { user: mapUser(user), accessToken, refreshToken };
+  };
+
+  signOut = async (refreshToken: string | undefined) => {
+    if (!refreshToken) return;
+
+    let decoded;
+
+    try {
+      decoded = await verifyRefreshToken(refreshToken);
+    } catch {
+      return;
+    }
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) return;
+
+    user.refreshToken = null;
+    await user.save();
+  };
+
+  refresh = async (refreshToken: string | undefined) => {
+    if (!refreshToken) {
+      throw new UnauthorizedError('No refresh token');
+    }
+
+    let decoded;
+
+    try {
+      decoded = await verifyRefreshToken(refreshToken);
+    } catch {
+      throw new UnauthorizedError(
+        'Your refresh token is invalid or expired. Please sign in again'
+      );
+    }
+
+    const user = await User.findById(decoded.id);
+
+    if (!user || user.refreshToken !== refreshToken) {
+      throw new UnauthorizedError('Invalid refresh token');
+    }
+
+    const accessToken = generateAccessToken({ id: user._id.toString() });
+
+    return { accessToken };
   };
 }
 
