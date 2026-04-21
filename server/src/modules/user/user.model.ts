@@ -7,6 +7,7 @@ export interface User {
   email: string;
   password: string;
   avatar?: string;
+  refreshToken: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -43,6 +44,10 @@ const userSchema = new Schema<User>(
     avatar: {
       type: String,
       default: '',
+    },
+    refreshToken: {
+      type: String,
+      default: null,
     },
   },
   {
