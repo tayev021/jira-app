@@ -5,6 +5,6 @@ export function getCookieOptions(): CookieOptions {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    maxAge: Number(process.env.EXPIRES_IN_HOURS) * 1000 * 60 * 60,
+    maxAge: Number(process.env.COOKIE_EXPIRES_IN_DAYS) * 24 * 60 * 60 * 1000,
   };
 }
