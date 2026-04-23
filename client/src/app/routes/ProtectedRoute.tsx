@@ -1,20 +1,16 @@
-import { useEffect, type ReactNode } from 'react';
-import { useMe } from '../../entities/user';
-import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router';
+import { useAuth } from '../../shared/hooks/useAuth';
 
-interface ProtectedRouteProps {
-  children: ReactNode;
-}
-
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, isLoading } = useMe();
+export function ProtectedRoute() {
+  const { currentUser, isLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && !isLoading) navigate('/auth/signin');
-  }, [user, isLoading, navigate]);
+    if (!currentUser && !isLoading) navigate('/auth/signin');
+  }, [currentUser, isLoading, navigate]);
 
   if (isLoading) return 'Loader placeholder';
 
-  return children;
+  return <Outlet />;
 }
