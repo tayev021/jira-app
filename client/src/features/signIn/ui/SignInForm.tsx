@@ -83,7 +83,7 @@ export function SignInForm({ className = '' }: SignInFormProps) {
         Don't have an account?{' '}
         <Link
           to="/auth/signup"
-          className="font-semibold text-primary hover:text-secondary"
+          className="font-semibold text-primary hover:text-primary-dark"
         >
           Sign up!
         </Link>

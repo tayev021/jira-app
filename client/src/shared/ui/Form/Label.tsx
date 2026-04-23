@@ -14,9 +14,11 @@ export function Label({ children, className = '', ...rest }: LabelProps) {
     <label
       className={cn(
         'absolute left-3 -translate-y-1/2 px-2 py-0.5 rounded-xl font-medium transition-all cursor-text',
-        isFocused || hasValue ? 'top-0 text-white bg-zinc-400' : 'top-1/2',
+        isFocused || hasValue
+          ? 'top-0 text-secondary-text bg-gray-primary'
+          : 'top-1/2',
         isFocused ? 'bg-primary' : '',
-        (isFocused || hasValue) && hasError ? 'bg-red-500' : '',
+        (isFocused || hasValue) && hasError ? 'bg-red-primary' : '',
         className
       )}
       {...rest}

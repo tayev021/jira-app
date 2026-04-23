@@ -18,7 +18,10 @@ export function SignOut({ className = '' }: SignOutProps) {
 
   return (
     <button
-      className={cn('w-6 h-6 cursor-pointer hover:text-secondary', className)}
+      className={cn(
+        'w-6 h-6 cursor-pointer hover:text-primary-dark',
+        className
+      )}
       onClick={handleClick}
     >
       <HiArrowRightOnRectangle className="w-full h-full" />

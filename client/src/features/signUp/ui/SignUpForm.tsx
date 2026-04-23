@@ -106,7 +106,7 @@ export function SignUpForm({ className = '' }: SignUpFormProps) {
         Do you have an account?{' '}
         <Link
           to="/auth/signin"
-          className="font-semibold text-primary hover:text-secondary"
+          className="font-semibold text-primary hover:text-primary-dark"
         >
           Sign in!
         </Link>
