@@ -1,12 +1,12 @@
+import { useAuth } from '../../../../../shared/hooks/useAuth';
 import { Container } from '../../../../../shared/ui/Container';
 import { Link } from 'react-router';
 import logo from '../../../../../shared/assets/logo.png';
-import { useMe } from '../../../../../entities/user';
-import { AuthPanel } from './AuthPanel';
 import { UserPanel } from './UserPanel';
+import { AuthPanel } from './AuthPanel';
 
 export function Header() {
-  const { user } = useMe();
+  const { currentUser } = useAuth();
 
   return (
     <header>
@@ -15,7 +15,7 @@ export function Header() {
           <img src={logo} alt="Jira Logo" className="w-7 h-7" />
           <h2 className="text-xl leading-none">Jira</h2>
         </Link>
-        {user?.id ? <UserPanel /> : <AuthPanel />}
+        {currentUser ? <UserPanel /> : <AuthPanel />}
       </Container>
     </header>
   );
