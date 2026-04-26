@@ -9,8 +9,8 @@ export function Header() {
   const { currentUser } = useAuth();
 
   return (
-    <header>
-      <Container className="flex justify-between items-center py-1 px-3 shadow-md">
+    <header className="shadow-md">
+      <Container className="flex justify-between items-center py-1 px-3">
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Jira Logo" className="w-7 h-7" />
           <h2 className="text-xl leading-none">Jira</h2>
