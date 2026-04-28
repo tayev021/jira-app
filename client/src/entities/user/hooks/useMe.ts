@@ -12,8 +12,11 @@ export function useMe() {
   } = useQuery<User, ApiError>({
     queryFn: getMe,
     queryKey: ['me'],
-    retry: false,
     staleTime: 5 * 60 * 1000,
+    retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   return { user, isLoading, isError, error };

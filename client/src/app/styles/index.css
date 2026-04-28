@@ -2,12 +2,22 @@
 
 @theme {
   --color-primary: #1868db;
-  --color-secondary: #123263;
+  --color-primary-dark: #123263;
 
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #e9f2fe;
+  --color-red-primary: #ff5630;
+  --color-yellow-primary: #ffab00;
+  --color-green-primary: #36b37e;
+  --color-blue-primary: #00b8d9;
+  --color-purple-primary: #6554c0;
+  --color-gray-primary: #71717a;
+  --color-gray-primary-light: #d4d4d8;
 
-  --color-text-primary: #292a2e;
+  --color-primary-bg: #ffffff;
+  --color-secondary-bg: #e9f2fe;
+
+  --color-primary-text: #292a2e;
+  --color-secondary-text: #ffffff;
+  --color-tertiary-text: #6b7280;
 }
 
 @layer base {
@@ -16,8 +26,8 @@
     min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
     @apply text-sm leading-normal;
-    color: var(--color-text-primary);
-    background-color: var(--color-bg-primary);
+    color: var(--color-primary-text);
+    background-color: var(--color-primary-bg);
   }
 }
 

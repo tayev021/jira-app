@@ -10,7 +10,7 @@ export function Submit({ className = '', ...rest }: SubmitProps) {
     <button
       type="submit"
       className={cn(
-        'w-full p-3 pr-2 rounded-full font-bold text-white bg-primary cursor-pointer hover:bg-secondary',
+        'w-full p-3.5 rounded-full font-bold text-secondary-text bg-primary cursor-pointer hover:bg-primary-dark',
         className
       )}
       {...rest}

@@ -26,8 +26,8 @@ export function Input({ className = '', ...rest }: InputProps) {
   return (
     <input
       className={cn(
-        'w-full py-2.5 pl-3 pr-2 border-2 rounded-full border-zinc-400 bg-bg-primary focus:border-primary focus:outline-none',
-        hasError ? 'border-red-500 focus:border-red-500' : '',
+        'w-full py-2.5 pl-3 pr-2 border-2 rounded-full border-gray-primary bg-primary-bg focus:border-primary focus:outline-none',
+        hasError ? 'border-red-primary focus:border-red-primary' : '',
         className
       )}
       {...rest}
