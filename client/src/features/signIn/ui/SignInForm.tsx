@@ -26,7 +26,7 @@ export function SignInForm({ className = '' }: SignInFormProps) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const onSubmit = (data: SignInSchema) => {
+  const submit = (data: SignInSchema) => {
     mutation.mutate(data, {
       onSuccess: (user) => {
         queryClient.setQueryData(['me'], user);
@@ -37,9 +37,9 @@ export function SignInForm({ className = '' }: SignInFormProps) {
           toast.error('Something went wrong');
         } else if (
           error.code === 'VALIDATION_ERROR' &&
-          Array.isArray(error.details)
+          Array.isArray(error.details?.fields)
         ) {
-          error.details.forEach((err) =>
+          error.details.fields.forEach((err) =>
             setError(err.field as keyof SignInSchema, {
               message: err.message,
             })
@@ -52,7 +52,7 @@ export function SignInForm({ className = '' }: SignInFormProps) {
   };
 
   return (
-    <Form className={className} onSubmit={handleSubmit(onSubmit)}>
+    <Form className={className} onSubmit={handleSubmit(submit)}>
       <Form.Heading>Sign In</Form.Heading>
       <Form.Field hasError={!!errors.email}>
         <Form.Label htmlFor="signin-email">Email</Form.Label>
