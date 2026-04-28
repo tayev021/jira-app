@@ -4,5 +4,5 @@ import type { FieldValidationError } from './FieldValidationError';
 export interface ApiErrorDto {
   code: ErrorCode;
   message: string;
-  details?: FieldValidationError[];
+  details?: { fields: FieldValidationError[] };
 }
