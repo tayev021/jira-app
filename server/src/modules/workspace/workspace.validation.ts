@@ -7,7 +7,10 @@ class WorkspaceValidation {
       .trim()
       .min(2, 'Workspace name must be at least 2 characters')
       .max(128, 'Workspace name must be less than 128 characters')
-      .regex(/^[a-zA-Z\s'-]+$/, 'Workspace name contains invalid characters'),
+      .regex(
+        /^[a-zA-Z][a-zA-Z0-9\s-]*$/,
+        'Workspace name contains invalid characters'
+      ),
   });
   updateNameSchema = z.object({
     name: z
@@ -15,7 +18,10 @@ class WorkspaceValidation {
       .trim()
       .min(2, 'Workspace name must be at least 2 characters')
       .max(128, 'Workspace name must be less than 128 characters')
-      .regex(/^[a-zA-Z\s'-]+$/, 'Workspace name contains invalid characters'),
+      .regex(
+        /^[a-zA-Z][a-zA-Z0-9\s-]*$/,
+        'Workspace name contains invalid characters'
+      ),
   });
 }
 
