@@ -4,7 +4,7 @@ import type { ApiErrorDto } from '../types/ApiErrorDto';
 
 export class ApiError extends Error {
   code: ErrorCode;
-  details?: FieldValidationError[];
+  details?: { fields: FieldValidationError[] };
 
   constructor(dto: ApiErrorDto) {
     super(dto.message);
