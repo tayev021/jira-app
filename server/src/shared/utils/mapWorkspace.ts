@@ -7,5 +7,7 @@ export function mapWorkspace(workspace: WorkspaceModel): Workspace {
     name: workspace.name,
     owner: workspace.owner.toString(),
     members: workspace.members.map((id) => id.toString()),
+    createdAt: workspace.createdAt.toISOString(),
+    updatedAt: workspace.updatedAt.toISOString(),
   };
 }
