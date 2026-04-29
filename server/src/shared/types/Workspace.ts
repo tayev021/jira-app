@@ -3,4 +3,6 @@ export interface Workspace {
   name: string;
   owner: string;
   members: string[];
+  createdAt: string;
+  updatedAt: string;
 }
