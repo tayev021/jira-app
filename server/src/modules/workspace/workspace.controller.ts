@@ -4,9 +4,9 @@ import { workspaceService } from './workspace.service';
 
 class WorkspaceController {
   getWorkspaces = catchAsync(async (req: Request, res: Response) => {
-    const { workspaces } = await workspaceService.getWorkspaces(
-      req.currentUser!.id
-    );
+    const { workspaces } = await workspaceService.getWorkspaces({
+      currentUserId: req.currentUser!.id,
+    });
     res.status(200).json({ success: true, data: { workspaces } });
   });
 
@@ -21,7 +21,7 @@ class WorkspaceController {
   createWorkspace = catchAsync(async (req: Request, res: Response) => {
     const { workspace } = await workspaceService.createWorkspace({
       name: req.body.name,
-      ownerId: req.currentUser!.id,
+      currentUserId: req.currentUser!.id,
     });
     res.status(200).json({ success: true, data: { workspace } });
   });

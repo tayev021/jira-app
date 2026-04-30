@@ -3,20 +3,20 @@ import { mapWorkspace } from '../../shared/utils/mapWorkspace';
 import { Workspace } from './workspace.model';
 
 class WorkspaceService {
-  getWorkspaces = async (currentUserId: string) => {
-    const workspaces = await Workspace.find({ members: currentUserId });
+  getWorkspaces = async (data: { currentUserId: string }) => {
+    const workspaces = await Workspace.find({ members: data.currentUserId });
     return { workspaces: workspaces.map(mapWorkspace) };
   };
 
-  getWorkspace = async (workspaceData: {
+  getWorkspace = async (data: {
     workspaceId: string;
     currentUserId: string;
   }) => {
-    const { workspaceId, currentUserId } = workspaceData;
+    const { workspaceId, currentUserId } = data;
     const workspace = await Workspace.findById(workspaceId);
 
     if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'No workspace with this ID was found');
+      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
     }
 
     const isMember = workspace.members.some(
@@ -32,29 +32,26 @@ class WorkspaceService {
     return { workspace: mapWorkspace(workspace) };
   };
 
-  createWorkspace = async (workspaceData: {
-    name: string;
-    ownerId: string;
-  }) => {
-    const { name, ownerId } = workspaceData;
+  createWorkspace = async (data: { name: string; currentUserId: string }) => {
+    const { name, currentUserId } = data;
     const workspace = await Workspace.create({
       name,
-      owner: ownerId,
-      members: [ownerId],
+      owner: currentUserId,
+      members: [currentUserId],
     });
     return { workspace: mapWorkspace(workspace) };
   };
 
-  updateWorkspaceName = async (workspaceData: {
+  updateWorkspaceName = async (data: {
     workspaceId: string;
     name: string;
     currentUserId: string;
   }) => {
-    const { workspaceId, name, currentUserId } = workspaceData;
+    const { workspaceId, name, currentUserId } = data;
     const workspace = await Workspace.findById(workspaceId);
 
     if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'No workspace with this ID was found');
+      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
     }
 
     if (workspace.owner.toString() !== currentUserId) {
@@ -69,15 +66,15 @@ class WorkspaceService {
     return { workspace: mapWorkspace(workspace) };
   };
 
-  deleteWorkspace = async (workspaceData: {
+  deleteWorkspace = async (data: {
     workspaceId: string;
     currentUserId: string;
   }) => {
-    const { workspaceId, currentUserId } = workspaceData;
+    const { workspaceId, currentUserId } = data;
     const workspace = await Workspace.findById(workspaceId);
 
     if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'No workspace with this ID was found');
+      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
     }
 
     if (workspace.owner.toString() !== currentUserId) {
