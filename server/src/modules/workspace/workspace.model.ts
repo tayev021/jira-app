@@ -3,8 +3,8 @@ import { model, Schema, Types } from 'mongoose';
 export interface Workspace {
   _id: Types.ObjectId;
   name: string;
-  owner: Types.ObjectId;
-  members: Types.ObjectId[];
+  ownerId: Types.ObjectId;
+  memberIds: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,12 +22,12 @@ const workspaceSchema = new Schema<Workspace>(
           .join(' ');
       },
     },
-    owner: {
+    ownerId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'A workspace must have a owner'],
     },
-    members: [
+    memberIds: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
