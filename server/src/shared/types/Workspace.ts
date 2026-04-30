@@ -1,8 +1,8 @@
 export interface Workspace {
   id: string;
   name: string;
-  owner: string;
-  members: string[];
+  ownerId: string;
+  memberIds: string[];
   createdAt: string;
   updatedAt: string;
 }
