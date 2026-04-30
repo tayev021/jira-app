@@ -5,8 +5,8 @@ export function mapWorkspace(workspace: WorkspaceModel): Workspace {
   return {
     id: workspace._id.toString(),
     name: workspace.name,
-    owner: workspace.owner.toString(),
-    members: workspace.members.map((id) => id.toString()),
+    ownerId: workspace.ownerId.toString(),
+    memberIds: workspace.memberIds.map((id) => id.toString()),
     createdAt: workspace.createdAt.toISOString(),
     updatedAt: workspace.updatedAt.toISOString(),
   };
