@@ -1,0 +1,68 @@
+import { model, Schema, Types } from 'mongoose';
+import { IssueStatus, IssueStatuses } from '../../shared/types/IssueStatus';
+import {
+  IssuePriorities,
+  IssuePriority,
+} from '../../shared/types/IssuePriority';
+
+export interface Issue {
+  _id: Types.ObjectId;
+  title: string;
+  description: string;
+  workspaceId: Types.ObjectId;
+  reporterId: Types.ObjectId;
+  assigneeIds: Types.ObjectId[];
+  status: IssueStatus;
+  priority: IssuePriority;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const issueSchema = new Schema<Issue>(
+  {
+    title: {
+      type: String,
+      required: [true, 'A issue must have a title'],
+      set(value: string) {
+        if (!value) return value;
+        return value[0].toUpperCase() + value.slice(1).toLowerCase();
+      },
+    },
+    description: {
+      type: String,
+      required: [true, 'A issue must have a description'],
+    },
+    workspaceId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Workspace',
+      required: [true, 'A issue must belong to a workspace'],
+    },
+    reporterId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'A issue must have a reporter'],
+    },
+    assigneeIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+    ],
+    status: {
+      type: String,
+      enum: IssueStatuses,
+      default: 'todo',
+    },
+    priority: {
+      type: String,
+      enum: IssuePriorities,
+      default: 'medium',
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+export const Issue = model<Issue>('Issue', issueSchema);
