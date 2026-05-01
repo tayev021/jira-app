@@ -8,7 +8,7 @@ export function mapUser(user: User): CurrentUser {
     surname: user.surname,
     email: user.email,
     avatar: user.avatar,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
+    createdAt: user.createdAt.toISOString(),
+    updatedAt: user.updatedAt.toISOString(),
   };
 }

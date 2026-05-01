@@ -3,6 +3,7 @@ import { UnauthorizedError } from '../errors';
 import { verifyAccessToken } from '../utils/verifyAccessToken';
 import { User } from '../../modules/user/user.model';
 import { catchAsync } from '../utils/catchAsync';
+import { mapUser } from '../utils/mapUser';
 
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -31,15 +32,7 @@ export const protect = catchAsync(
       );
     }
 
-    req.currentUser = {
-      id: user._id.toString(),
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      avatar: user.avatar,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    req.currentUser = mapUser(user);
     next();
   }
 );

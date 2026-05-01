@@ -1,6 +1,9 @@
-import { User } from '../../modules/user/user.model';
-
-export type CurrentUser = Pick<
-  User,
-  'name' | 'surname' | 'email' | 'avatar' | 'createdAt' | 'updatedAt'
-> & { id: string };
+export type CurrentUser = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  avatar?: string;
+  createdAt: string;
+  updatedAt: string;
+};
