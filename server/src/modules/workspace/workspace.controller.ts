@@ -26,6 +26,24 @@ class WorkspaceController {
     res.status(200).json({ success: true, data: { workspace } });
   });
 
+  addMember = catchAsync(async (req: Request, res: Response) => {
+    const { workspace } = await workspaceService.addMember({
+      workspaceId: req.params.workspaceId as string,
+      memberId: req.body.memberId,
+      currentUserId: req.currentUser!.id,
+    });
+    res.status(200).json({ success: true, data: { workspace } });
+  });
+
+  deleteMember = catchAsync(async (req: Request, res: Response) => {
+    const { workspace } = await workspaceService.deleteMember({
+      workspaceId: req.params.workspaceId as string,
+      memberId: req.body.memberId,
+      currentUserId: req.currentUser!.id,
+    });
+    res.status(200).json({ success: true, data: { workspace } });
+  });
+
   updateWorkspaceName = catchAsync(async (req: Request, res: Response) => {
     const { workspace } = await workspaceService.updateWorkspaceName({
       workspaceId: req.params.workspaceId as string,
