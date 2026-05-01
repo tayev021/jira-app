@@ -1,10 +1,13 @@
-import { ApiError, ForbiddenError } from '../../shared/errors';
-import { mapWorkspace } from '../../shared/utils/mapWorkspace';
 import { Workspace } from './workspace.model';
+import { mapWorkspace } from '../../shared/utils/mapWorkspace';
+import { findWorkspaceById } from '../../shared/utils/findWorkspaceById';
+import { restrictToOwner } from '../../shared/utils/restrictToOwner';
+import { restrictToMember } from '../../shared/utils/restrictToMember';
+import mongoose from 'mongoose';
 
 class WorkspaceService {
   getWorkspaces = async (data: { currentUserId: string }) => {
-    const workspaces = await Workspace.find({ members: data.currentUserId });
+    const workspaces = await Workspace.find({ memberIds: data.currentUserId });
     return { workspaces: workspaces.map(mapWorkspace) };
   };
 
@@ -13,21 +16,9 @@ class WorkspaceService {
     currentUserId: string;
   }) => {
     const { workspaceId, currentUserId } = data;
-    const workspace = await Workspace.findById(workspaceId);
+    const workspace = await findWorkspaceById(workspaceId);
 
-    if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
-    }
-
-    const isMember = workspace.members.some(
-      (memberId) => memberId.toString() === currentUserId
-    );
-
-    if (!isMember) {
-      throw new ForbiddenError(
-        'You are not a member of this workspace. You do not have permission to perform this action'
-      );
-    }
+    await restrictToMember(workspace, currentUserId);
 
     return { workspace: mapWorkspace(workspace) };
   };
@@ -36,9 +27,10 @@ class WorkspaceService {
     const { name, currentUserId } = data;
     const workspace = await Workspace.create({
       name,
-      owner: currentUserId,
-      members: [currentUserId],
+      ownerId: currentUserId,
+      memberIds: [currentUserId],
     });
+
     return { workspace: mapWorkspace(workspace) };
   };
 
@@ -48,19 +40,45 @@ class WorkspaceService {
     currentUserId: string;
   }) => {
     const { workspaceId, name, currentUserId } = data;
-    const workspace = await Workspace.findById(workspaceId);
+    const workspace = await findWorkspaceById(workspaceId);
 
-    if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
-    }
-
-    if (workspace.owner.toString() !== currentUserId) {
-      throw new ForbiddenError(
-        'You are not the owner of this workspace. You do not have permission to perform this action'
-      );
-    }
+    await restrictToOwner(workspace, currentUserId);
 
     workspace.name = name;
+    await workspace.save();
+
+    return { workspace: mapWorkspace(workspace) };
+  };
+
+  addMember = async (data: {
+    workspaceId: string;
+    memberId: string;
+    currentUserId: string;
+  }) => {
+    const { workspaceId, memberId, currentUserId } = data;
+    const workspace = await findWorkspaceById(workspaceId);
+
+    await restrictToOwner(workspace, currentUserId);
+
+    workspace.memberIds.push(new mongoose.Types.ObjectId(memberId));
+    await workspace.save();
+
+    return { workspace: mapWorkspace(workspace) };
+  };
+
+  deleteMember = async (data: {
+    workspaceId: string;
+    memberId: string;
+    currentUserId: string;
+  }) => {
+    const { workspaceId, memberId, currentUserId } = data;
+    const workspace = await findWorkspaceById(workspaceId);
+
+    await restrictToOwner(workspace, currentUserId);
+
+    workspace.memberIds = workspace.memberIds.filter(
+      (id) => id.toString() !== memberId
+    );
     await workspace.save();
 
     return { workspace: mapWorkspace(workspace) };
@@ -71,17 +89,9 @@ class WorkspaceService {
     currentUserId: string;
   }) => {
     const { workspaceId, currentUserId } = data;
-    const workspace = await Workspace.findById(workspaceId);
+    const workspace = await findWorkspaceById(workspaceId);
 
-    if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
-    }
-
-    if (workspace.owner.toString() !== currentUserId) {
-      throw new ForbiddenError(
-        'You are not the owner of this workspace. You do not have permission to perform this action'
-      );
-    }
+    await restrictToOwner(workspace, currentUserId);
 
     await workspace.deleteOne();
   };
