@@ -23,6 +23,18 @@ class WorkspaceValidation {
         'Workspace name contains invalid characters'
       ),
   });
+  addMemberSchema = z.object({
+    memberId: z
+      .string('Member ID must be a string')
+      .trim()
+      .length(24, 'Member ID must be 24 characters'),
+  });
+  deleteMemberSchema = z.object({
+    memberId: z
+      .string('Member ID must be a string')
+      .trim()
+      .length(24, 'Member ID must be 24 characters'),
+  });
 }
 
 export const workspaceValidations = new WorkspaceValidation();
