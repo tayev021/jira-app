@@ -20,10 +20,22 @@ workspaceRouter.patch(
   validateBody(workspaceValidations.updateNameSchema),
   workspaceController.updateWorkspaceName
 );
+workspaceRouter.put(
+  '/:workspaceId/member',
+  protect,
+  validateBody(workspaceValidations.addMemberSchema),
+  workspaceController.addMember
+);
 workspaceRouter.delete(
   '/:workspaceId',
   protect,
   workspaceController.deleteWorkspace
+);
+workspaceRouter.delete(
+  '/:workspaceId/member',
+  protect,
+  validateBody(workspaceValidations.deleteMemberSchema),
+  workspaceController.deleteMember
 );
 
 export { workspaceRouter };
