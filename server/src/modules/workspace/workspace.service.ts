@@ -4,6 +4,9 @@ import { findWorkspaceById } from '../../shared/utils/findWorkspaceById';
 import { restrictToOwner } from '../../shared/utils/restrictToOwner';
 import { restrictToMember } from '../../shared/utils/restrictToMember';
 import mongoose from 'mongoose';
+import { generateUniqueSlug } from './utils/generateUniqueSlug';
+import { Issue } from '../issue/issue.model';
+import { ForbiddenError } from '../../shared/errors';
 
 class WorkspaceService {
   getWorkspaces = async (data: { currentUserId: string }) => {
@@ -27,6 +30,7 @@ class WorkspaceService {
     const { name, currentUserId } = data;
     const workspace = await Workspace.create({
       name,
+      slug: await generateUniqueSlug(name),
       ownerId: currentUserId,
       memberIds: [currentUserId],
     });
@@ -92,6 +96,14 @@ class WorkspaceService {
     const workspace = await findWorkspaceById(workspaceId);
 
     await restrictToOwner(workspace, currentUserId);
+
+    const issuesCount = await Issue.countDocuments({ workspaceId });
+
+    if (issuesCount > 0) {
+      throw new ForbiddenError(
+        `This workspace contains work issues. You cannot delete it`
+      );
+    }
 
     await workspace.deleteOne();
   };
