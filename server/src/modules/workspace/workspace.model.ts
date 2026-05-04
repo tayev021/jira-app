@@ -2,6 +2,7 @@ import { model, Schema, Types } from 'mongoose';
 
 export interface Workspace {
   _id: Types.ObjectId;
+  slug: string;
   name: string;
   ownerId: Types.ObjectId;
   memberIds: Types.ObjectId[];
@@ -11,6 +12,11 @@ export interface Workspace {
 
 const workspaceSchema = new Schema<Workspace>(
   {
+    slug: {
+      type: String,
+      required: [true, 'A workspace must have a slug'],
+      unique: true,
+    },
     name: {
       type: String,
       required: [true, 'A workspace must have a name'],
