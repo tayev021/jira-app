@@ -4,6 +4,7 @@ import { Issue } from '../types/Issue';
 export function mapIssue(issue: IssueModel): Issue {
   return {
     id: issue._id.toString(),
+    slug: issue.slug,
     title: issue.title,
     description: issue.description,
     workspaceId: issue.workspaceId.toString(),
