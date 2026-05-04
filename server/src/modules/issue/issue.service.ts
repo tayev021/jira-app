@@ -7,6 +7,7 @@ import { ForbiddenError } from '../../shared/errors';
 import { IssueStatus } from '../../shared/types/IssueStatus';
 import { IssuePriority } from '../../shared/types/IssuePriority';
 import mongoose from 'mongoose';
+import { getNextSequence } from './utils/getNextSequence';
 
 class IssueService {
   getIssues = async (data: { workspaceId: string; currentUserId: string }) => {
@@ -40,7 +41,10 @@ class IssueService {
 
     await restrictToMember(workspace, currentUserId);
 
+    const seq = await getNextSequence(workspace._id);
     const issue = await Issue.create({
+      slug: `${workspace.slug}-${seq}`,
+      sequenceNumber: seq,
       title,
       description,
       workspaceId,
@@ -132,9 +136,15 @@ class IssueService {
       issue.reporterId.toString() !== currentUserId
     ) {
       throw new ForbiddenError(
-        'Only the workspace owner or the issue reporter can do this. You do not have permission to perform this action'
+        'Only the workspace owner or the issue reporter can add assignee'
       );
     }
+
+    await restrictToMember(
+      workspace,
+      assigneeId,
+      'This assignee not a member of this workspace'
+    );
 
     issue.assigneeIds.push(new mongoose.Types.ObjectId(assigneeId));
     await issue.save();
@@ -156,7 +166,7 @@ class IssueService {
       issue.reporterId.toString() !== currentUserId
     ) {
       throw new ForbiddenError(
-        'Only the workspace owner or the issue reporter can do this. You do not have permission to perform this action'
+        'Only the workspace owner or the issue reporter can do this'
       );
     }
 
@@ -178,7 +188,7 @@ class IssueService {
       issue.reporterId.toString() !== currentUserId
     ) {
       throw new ForbiddenError(
-        'Only the workspace owner or the issue reporter can do this. You do not have permission to perform this action'
+        'Only the workspace owner or the issue reporter can do this'
       );
     }
 
