@@ -7,6 +7,8 @@ import {
 
 export interface Issue {
   _id: Types.ObjectId;
+  slug: string;
+  sequenceNumber: number;
   title: string;
   description: string;
   workspaceId: Types.ObjectId;
@@ -22,25 +24,34 @@ const issueSchema = new Schema<Issue>(
   {
     title: {
       type: String,
-      required: [true, 'A issue must have a title'],
+      required: [true, 'An issue must have a title'],
       set(value: string) {
         if (!value) return value;
         return value[0].toUpperCase() + value.slice(1).toLowerCase();
       },
     },
+    slug: {
+      type: String,
+      required: [true, 'An issue must have a slug'],
+      unique: true,
+    },
+    sequenceNumber: {
+      type: Number,
+      required: [true, 'An issue must have a sequence number'],
+    },
     description: {
       type: String,
-      required: [true, 'A issue must have a description'],
+      required: [true, 'An issue must have a description'],
     },
     workspaceId: {
       type: Schema.Types.ObjectId,
       ref: 'Workspace',
-      required: [true, 'A issue must belong to a workspace'],
+      required: [true, 'An issue must belong to a workspace'],
     },
     reporterId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'A issue must have a reporter'],
+      required: [true, 'An issue must have a reporter'],
     },
     assigneeIds: [
       {
