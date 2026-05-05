@@ -5,7 +5,7 @@ import { issueService } from './issue.service';
 class IssueController {
   getIssues = catchAsync(async (req: Request, res: Response) => {
     const { issues } = await issueService.getIssues({
-      workspaceId: req.body.workspaceId,
+      workspaceId: req.query.workspaceId as string,
       currentUserId: req.currentUser!.id,
     });
     res.status(200).json({ success: true, data: { issues } });
