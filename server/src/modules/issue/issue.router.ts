@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { protect } from '../../shared/middleware/protect';
+import { validateQueryParams } from '../../shared/middleware/validateQueryParams';
 import { issueController } from './issue.controller';
 import { validateBody } from '../../shared/middleware/validateBody';
 import { issueValidations } from './issue.validation';
@@ -9,7 +10,7 @@ const issueRouter = Router();
 issueRouter.get(
   '/',
   protect,
-  validateBody(issueValidations.getIssuesSchema),
+  validateQueryParams(issueValidations.getIssuesSchema),
   issueController.getIssues
 );
 issueRouter.get('/:issueId', protect, issueController.getIssue);
