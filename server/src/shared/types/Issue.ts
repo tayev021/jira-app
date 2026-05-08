@@ -1,5 +1,6 @@
-import { IssuePriority } from './IssuePriority';
+import { IssueUser } from './IssueUser';
 import { IssueStatus } from './IssueStatus';
+import { IssuePriority } from './IssuePriority';
 
 export interface Issue {
   id: string;
@@ -7,8 +8,8 @@ export interface Issue {
   title: string;
   description: string;
   workspaceId: string;
-  reporterId: string;
-  assigneeIds: string[];
+  reporter: IssueUser;
+  assignees: IssueUser[];
   status: IssueStatus;
   priority: IssuePriority;
   createdAt: string;
