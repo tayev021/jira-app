@@ -8,11 +8,17 @@ import { IssueStatus } from '../../shared/types/IssueStatus';
 import { IssuePriority } from '../../shared/types/IssuePriority';
 import mongoose from 'mongoose';
 import { getNextSequence } from './utils/getNextSequence';
+import { User } from '../user/user.model';
 
 class IssueService {
   getIssues = async (data: { workspaceId: string; currentUserId: string }) => {
     const { workspaceId, currentUserId } = data;
-    const issues = await Issue.find({ workspaceId: workspaceId });
+    const issues = await Issue.find({
+      workspaceId: workspaceId,
+    }).populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
     const workspace = await findWorkspaceById(workspaceId);
 
     await restrictToMember(workspace, currentUserId);
@@ -27,7 +33,12 @@ class IssueService {
 
     await restrictToMember(workspace, currentUserId);
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   create = async (data: {
@@ -51,7 +62,12 @@ class IssueService {
       reporterId: currentUserId,
     });
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   updateTitle = async (data: {
@@ -68,7 +84,12 @@ class IssueService {
     issue.title = title;
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   updateDescription = async (data: {
@@ -85,7 +106,12 @@ class IssueService {
     issue.description = description;
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   updateStatus = async (data: {
@@ -102,7 +128,12 @@ class IssueService {
     issue.status = status;
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   updatePriority = async (data: {
@@ -119,7 +150,12 @@ class IssueService {
     issue.priority = priority;
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   addAssignee = async (data: {
@@ -149,7 +185,12 @@ class IssueService {
     issue.assigneeIds.push(new mongoose.Types.ObjectId(assigneeId));
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   deleteAssignee = async (data: {
@@ -175,7 +216,12 @@ class IssueService {
     );
     await issue.save();
 
-    return { issue: mapIssue(issue) };
+    const populatedIssue = await issue.populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issue: mapIssue(populatedIssue) };
   };
 
   deleteIssue = async (data: { issueId: string; currentUserId: string }) => {
