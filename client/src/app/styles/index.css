@@ -5,19 +5,20 @@
   --color-primary-dark: #123263;
 
   --color-red-primary: #ff5630;
-  --color-yellow-primary: #ffab00;
+  --color-orange-primary: #ff8b00;
+  --color-yellow-primary: #ffc400;
   --color-green-primary: #36b37e;
   --color-blue-primary: #00b8d9;
   --color-purple-primary: #6554c0;
-  --color-gray-primary: #71717a;
-  --color-gray-primary-light: #d4d4d8;
+  --color-gray-primary: #6b778c;
+  --color-gray-primary-light: #dfe1e6;
 
   --color-primary-bg: #ffffff;
   --color-secondary-bg: #e9f2fe;
 
   --color-primary-text: #292a2e;
   --color-secondary-text: #ffffff;
-  --color-tertiary-text: #6b7280;
+  --color-tertiary-text: #6b778c;
 }
 
 @layer base {
