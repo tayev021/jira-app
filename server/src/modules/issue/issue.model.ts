@@ -4,6 +4,7 @@ import {
   IssuePriorities,
   IssuePriority,
 } from '../../shared/types/IssuePriority';
+import { User } from '../user/user.model';
 
 export interface Issue {
   _id: Types.ObjectId;
@@ -19,6 +20,11 @@ export interface Issue {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type PopulatedIssue = Omit<Issue, 'reporterId' | 'assigneeIds'> & {
+  reporterId: User;
+  assigneeIds: User[];
+};
 
 const issueSchema = new Schema<Issue>(
   {
@@ -68,7 +74,7 @@ const issueSchema = new Schema<Issue>(
     priority: {
       type: String,
       enum: IssuePriorities,
-      default: 'medium',
+      default: 'none',
     },
   },
   {
