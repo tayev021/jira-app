@@ -52,7 +52,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
       <Dropdown.Open menuName={`issue-${issue.id}-priority`}>
         <button
           key={issue.priority}
-          className="w-30 grid grid-cols-[min-content_1fr_min-content] items-center gap-1 px-2 py-1 rounded-md font-medium uppercase bg-gray-primary-light cursor-pointer"
+          className="w-30 grid grid-cols-[min-content_1fr_min-content] items-center gap-1 px-2 py-0.75 rounded-sm font-medium uppercase bg-gray-primary-light cursor-pointer"
         >
           <Icon
             className={`inline-block text-base ${colors[issue.priority]}`}
@@ -65,7 +65,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
       </Dropdown.Open>
       <Dropdown.Menu
         name={`issue-${issue.id}-priority`}
-        className="w-30 mt-1.5 border border-gray-primary rounded-md flex flex-col  leading-none bg-primary-bg shadow-md overflow-hidden"
+        className="w-30 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden"
       >
         {restPriorities.map((priority) => {
           const Icon = icons[priority];
@@ -73,7 +73,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
           return (
             <button
               key={priority}
-              className="px-1.75 py-1 font-medium uppercase text-left cursor-pointer hover:bg-primary hover:text-secondary-text"
+              className="px-1.75 py-0.75 font-medium uppercase text-left cursor-pointer hover:bg-gray-primary-light"
               onClick={() => handleUpdateIssuePriority(priority)}
             >
               <Icon
