@@ -1,3 +1,4 @@
+import { useWorkspace } from './hooks/useWorkspace';
 import { useWorkspaces } from './hooks/useWorkspaces';
 
-export { useWorkspaces };
+export { useWorkspace, useWorkspaces };
