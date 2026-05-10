@@ -3,6 +3,7 @@ import { Heading } from './Heading';
 import { Field } from './Field';
 import { Label } from './Label';
 import { Input } from './Input';
+import { TextArea } from './TextArea';
 import { InputError } from './InputError';
 import { Submit } from './Submit';
 import { cn } from '../../utils/cn';
@@ -17,6 +18,7 @@ type FormComponent = FC<FormProps> & {
   Field: typeof Field;
   Label: typeof Label;
   Input: typeof Input;
+  TextArea: typeof TextArea;
   InputError: typeof InputError;
   Submit: typeof Submit;
 };
@@ -39,6 +41,7 @@ Form.Heading = Heading;
 Form.Field = Field;
 Form.Label = Label;
 Form.Input = Input;
+Form.TextArea = TextArea;
 Form.InputError = InputError;
 Form.Submit = Submit;
 
