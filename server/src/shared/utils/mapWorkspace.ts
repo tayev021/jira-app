@@ -4,6 +4,7 @@ import { Workspace } from '../types/Workspace';
 export function mapWorkspace(workspace: WorkspaceModel): Workspace {
   return {
     id: workspace._id.toString(),
+    slug: workspace.slug,
     name: workspace.name,
     ownerId: workspace.ownerId.toString(),
     memberIds: workspace.memberIds.map((id) => id.toString()),

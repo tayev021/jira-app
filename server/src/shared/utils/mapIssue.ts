@@ -1,0 +1,19 @@
+import { PopulatedIssue } from '../../modules/issue/issue.model';
+import { Issue } from '../types/Issue';
+import { mapIssueUser } from './mapIssueUser';
+
+export function mapIssue(issue: PopulatedIssue): Issue {
+  return {
+    id: issue._id.toString(),
+    slug: issue.slug,
+    title: issue.title,
+    description: issue.description,
+    workspaceId: issue.workspaceId.toString(),
+    reporter: mapIssueUser(issue.reporterId),
+    assignees: issue.assigneeIds.map((assignee) => mapIssueUser(assignee)),
+    status: issue.status,
+    priority: issue.priority,
+    createdAt: issue.createdAt.toISOString(),
+    updatedAt: issue.updatedAt.toISOString(),
+  };
+}

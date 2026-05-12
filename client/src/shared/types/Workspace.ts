@@ -1,5 +1,6 @@
 export interface Workspace {
   id: string;
+  slug: string;
   name: string;
   ownerId: string;
   memberIds: string[];

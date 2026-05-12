@@ -1,0 +1,17 @@
+import type { IssueUser } from './IssueUser';
+import type { IssuePriority } from './IssuePriority';
+import type { IssueStatus } from './IssueStatus';
+
+export interface Issue {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  workspaceId: string;
+  reporter: IssueUser;
+  assignees: IssueUser[];
+  status: IssueStatus;
+  priority: IssuePriority;
+  createdAt: string;
+  updatedAt: string;
+}
