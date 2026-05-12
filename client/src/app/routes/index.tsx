@@ -3,7 +3,12 @@ import { MainLayout } from '../layouts/MainLayout';
 import { HomePage } from '../../pages/home';
 import { SignInPage, SignUpPage } from '../../pages/auth';
 import { ProtectedRoute } from './ProtectedRoute';
-import { AppHomePage, IssuesPage, SummaryPage } from '../../pages/app';
+import {
+  AppHomePage,
+  BoardPage,
+  IssuesPage,
+  SummaryPage,
+} from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
 
 export function AppRouter() {
@@ -21,6 +26,7 @@ export function AppRouter() {
             <Route path="workspace/:workspaceId" element={<WorkspaceLayout />}>
               <Route index element={<SummaryPage />} />
               <Route path="issues" element={<IssuesPage />} />
+              <Route path="board" element={<BoardPage />} />
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
