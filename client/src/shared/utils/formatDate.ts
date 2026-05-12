@@ -1,3 +1,5 @@
+type DateFormat = 'DD MMM YYYY, HH:MM' | 'DD MMM YYYY';
+
 const months = [
   'Jan',
   'Feb',
@@ -13,7 +15,10 @@ const months = [
   'Dec',
 ];
 
-export function formatDate(date: Date | string) {
+export function formatDate(
+  date: Date | string,
+  format: DateFormat = 'DD MMM YYYY, HH:MM'
+) {
   const baseDate = typeof date === 'string' ? new Date(date) : date;
 
   if (isNaN(baseDate.getTime())) {
@@ -26,5 +31,12 @@ export function formatDate(date: Date | string) {
   const hours = String(baseDate.getHours()).padStart(2, '0');
   const minutes = String(baseDate.getMinutes()).padStart(2, '0');
 
-  return `${day} ${month} ${year}, ${hours}:${minutes}`;
+  switch (format) {
+    case 'DD MMM YYYY, HH:MM':
+      return `${day} ${month} ${year}, ${hours}:${minutes}`;
+    case 'DD MMM YYYY':
+      return `${day} ${month} ${year}`;
+    default:
+      throw new Error();
+  }
 }
