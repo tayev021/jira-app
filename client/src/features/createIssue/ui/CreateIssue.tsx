@@ -28,6 +28,7 @@ export function CreateIssue({ close = () => {} }: CreateIssueProps) {
 
   const submit = (data: CreateIssueSchema) => {
     mutation.mutate(data, {
+      onSuccess: () => close(),
       onError: (error) => {
         if (!(error instanceof ApiError)) {
           toast.error('Something went wrong');
