@@ -1,5 +1,5 @@
 import { useMe } from './hooks/useMe';
-import { UserAvatar } from './ui/UserAvatar';
+import { UserAvatarLink } from './ui/UserAvatarLink';
 import { UserLink } from './ui/UserLink';
 
-export { useMe, UserAvatar, UserLink };
+export { useMe, UserAvatarLink, UserLink };

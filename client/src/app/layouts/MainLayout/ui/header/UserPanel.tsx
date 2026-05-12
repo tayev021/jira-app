@@ -1,6 +1,5 @@
 import { useAuth } from '../../../../../shared/hooks/useAuth';
-import { Link } from 'react-router';
-import { UserAvatar } from '../../../../../entities/user';
+import { UserAvatarLink } from '../../../../../entities/user';
 import { SignOut } from '../../../../../features/signOut';
 
 export function UserPanel() {
@@ -10,9 +9,7 @@ export function UserPanel() {
 
   return (
     <div className="flex gap-3 items-center">
-      <Link to="account">
-        <UserAvatar user={currentUser} />
-      </Link>
+      <UserAvatarLink to="account" user={currentUser} />
       <SignOut />
     </div>
   );
