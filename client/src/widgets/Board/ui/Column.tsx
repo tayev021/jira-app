@@ -4,6 +4,10 @@ import { useUpdateIssueStatus } from '../../../features/updateIssueStatus';
 import type { DragEvent } from 'react';
 import { Card } from './Card/Card';
 import toast from 'react-hot-toast';
+import { Modal } from '../../../shared/ui/Modal';
+import { HiPlus } from 'react-icons/hi2';
+import { Button } from '../../../shared/ui/Button';
+import { CreateIssue } from '../../../features/createIssue';
 
 interface ColumnProps {
   status: IssueStatus;
@@ -30,11 +34,11 @@ export function Column({ status, issues }: ColumnProps) {
 
   return (
     <div
-      className="rounded-md bg-secondary-bg shadow-sm"
+      className="relative rounded-md bg-secondary-bg shadow-sm"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="flex items-center p-2 border-b border-gray-primary-light shadow-sm">
+      <div className="sticky top-0 flex items-center p-2 border-b border-gray-primary-light rounded-md bg-secondary-bg shadow-sm z-10">
         <h4 className="font-semibold text-base text-gray-primary uppercase leading-none">
           {status}
         </h4>
@@ -47,6 +51,15 @@ export function Column({ status, issues }: ColumnProps) {
           <Card key={issue.id} issue={issue} />
         ))}
       </ul>
+      <Modal.Open modalName={`create-issue-with-${status}`}>
+        <Button className="flex items-center gap-2 px-2 py-1 ml-2 mb-3 rounded-sm font-medium text-gray-primary hover:text-primary">
+          <HiPlus className="text-lg" />
+          Create Issue
+        </Button>
+      </Modal.Open>
+      <Modal.Window name={`create-issue-with-${status}`}>
+        <CreateIssue />
+      </Modal.Window>
     </div>
   );
 }
