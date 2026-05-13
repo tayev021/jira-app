@@ -13,10 +13,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={cn(
-        'px-2 py-1 border border-gray-primary rounded-sm shadow-sm leading-none cursor-pointer hover:shadow-lg',
-        className
-      )}
+      className={cn('leading-none cursor-pointer', className)}
       {...restProps}
     >
       {children}
