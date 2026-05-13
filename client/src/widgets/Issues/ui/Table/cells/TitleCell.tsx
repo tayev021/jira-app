@@ -7,7 +7,7 @@ interface TitleCellProps {
 
 export function TitleCell({ issue }: TitleCellProps) {
   return (
-    <Cell>
+    <Cell className="sticky left-0 bg-inherit z-10">
       <span className="mr-2.5 border-b-2 border-transparent font-semibold text-primary cursor-pointer hover:border-primary">
         {issue.slug}
       </span>

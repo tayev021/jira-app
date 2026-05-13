@@ -8,7 +8,7 @@ interface TableProps {
 
 export function Table({ issues }: TableProps) {
   return (
-    <table className="min-w-full border border-collapse border-gray-primary-light leading-none">
+    <table className="relative min-w-full border border-gray-primary-light border-separate border-spacing-0 leading-none">
       <Heading />
       <tbody>
         {issues.map((issue) => (
