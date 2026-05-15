@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import type { Issue } from '../../../../shared/types/Issue';
 import { formatDate } from '../../../../shared/utils/formatDate';
 import { UserAvatarLink } from '../../../../entities/user';
@@ -11,6 +11,8 @@ interface CardProps {
 }
 
 export function Card({ issue }: CardProps) {
+  const location = useLocation();
+
   function handleDragStart(event: DragEvent<HTMLLIElement>) {
     event.dataTransfer.setData('issueId', issue.id);
   }
@@ -24,7 +26,8 @@ export function Card({ issue }: CardProps) {
       <div className="flex items-center gap-2">
         <IssuePriorityIcon priority={issue.priority} className="min-w-4" />
         <Link
-          to={``}
+          to={`/app/workspace/${issue.workspaceId}/board/issues/${issue.id}`}
+          state={{ backgroundLocation: location }}
           className="border-b-2 border-transparent font-semibold text-nowrap text-primary cursor-pointer hover:border-primary"
         >
           {issue.slug}
