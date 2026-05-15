@@ -31,7 +31,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
       <Dropdown.Open menuName={`issue-${issue.id}-priority`}>
         <button
           key={issue.priority}
-          className="w-30 grid grid-cols-[min-content_1fr_min-content] items-center gap-1 px-2 py-0.75 rounded-sm font-medium uppercase bg-gray-primary-light cursor-pointer"
+          className="w-30 grid grid-cols-[min-content_1fr_min-content] items-center gap-1 px-2 py-0.75 rounded-sm font-medium uppercase leading-none bg-gray-primary-light cursor-pointer"
         >
           <IssuePriorityIcon priority={issue.priority} />
           <span className="font-medium text-left">
@@ -42,7 +42,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
       </Dropdown.Open>
       <Dropdown.Menu
         name={`issue-${issue.id}-priority`}
-        className="w-30 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden"
+        className="w-30 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden z-50"
       >
         {restPriorities.map((priority) => {
           return (
