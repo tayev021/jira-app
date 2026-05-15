@@ -30,7 +30,7 @@ export function UpdateIssueStatus({ issue }: UpdateIssueStatusProps) {
       <Dropdown.Open menuName={`issue-${issue.id}-status`}>
         <button
           key={issue.status}
-          className="w-32 flex gap-1 justify-between px-2 py-1 rounded-sm font-medium uppercase bg-gray-primary-light cursor-pointer"
+          className="w-32 flex gap-1 justify-between px-2 py-1 rounded-sm font-medium uppercase leading-none bg-gray-primary-light cursor-pointer"
         >
           {issue.status}
           <HiOutlineChevronDown />
@@ -38,7 +38,7 @@ export function UpdateIssueStatus({ issue }: UpdateIssueStatusProps) {
       </Dropdown.Open>
       <Dropdown.Menu
         name={`issue-${issue.id}-status`}
-        className="w-32 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden"
+        className="w-32 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden z-50"
       >
         {restStatuses.map((status) => (
           <button
