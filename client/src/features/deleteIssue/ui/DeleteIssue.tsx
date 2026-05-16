@@ -6,14 +6,22 @@ import { useDeleteIssue } from '../hooks/useDeleteIssue';
 interface DeleteIssueProps {
   issue: Issue;
   close?: () => void;
+  handleSuccess?: () => void;
 }
 
-export function DeleteIssue({ issue, close = () => {} }: DeleteIssueProps) {
+export function DeleteIssue({
+  issue,
+  close = () => {},
+  handleSuccess = () => {},
+}: DeleteIssueProps) {
   const mutation = useDeleteIssue(issue.id);
 
   const handleDelete = () => {
     mutation.mutate(null, {
-      onSuccess: () => close(),
+      onSuccess: () => {
+        close();
+        handleSuccess();
+      },
       onError: (error) => {
         toast.error(error.message);
       },
