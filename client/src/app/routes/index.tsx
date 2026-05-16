@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { Routes, Route, useLocation, type Location } from 'react-router';
 import { MainLayout } from '../layouts/MainLayout';
 import { HomePage } from '../../pages/home';
 import { SignInPage, SignUpPage } from '../../pages/auth';
@@ -10,11 +10,18 @@ import {
   SummaryPage,
 } from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
+import { IssueDetails } from '../../widgets/IssueDetails';
 
 export function AppRouter() {
+  const location = useLocation();
+  const locationState = location.state as {
+    backgroundLocation?: Location;
+  };
+  const backgroundLocation = locationState?.backgroundLocation;
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Routes location={backgroundLocation || location}>
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="auth">
@@ -38,6 +45,19 @@ export function AppRouter() {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+
+      {backgroundLocation && (
+        <Routes>
+          <Route
+            path="/app/workspace/:workspaceId/board/issues/:issueId"
+            element={<IssueDetails />}
+          />
+          <Route
+            path="/app/workspace/:workspaceId/issues/:issueId"
+            element={<IssueDetails />}
+          />
+        </Routes>
+      )}
+    </>
   );
 }
