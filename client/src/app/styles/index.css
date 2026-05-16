@@ -19,6 +19,28 @@
   --color-primary-text: #292a2e;
   --color-secondary-text: #ffffff;
   --color-tertiary-text: #6b778c;
+
+  --animate-drawer-open: drawer-open 0.4s ease-out 1 forwards;
+  --animate-drawer-close: drawer-close 0.4s ease-out 1 forwards;
+
+  @keyframes drawer-open {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes drawer-close {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
 }
 
 @layer base {
