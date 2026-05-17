@@ -11,9 +11,13 @@ import { IssuePriorityIcon } from '../../../shared/ui/IssuePriorityIcon';
 
 interface UpdateIssuePriorityProps {
   issue: Issue;
+  from?: string;
 }
 
-export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
+export function UpdateIssuePriority({
+  issue,
+  from = '',
+}: UpdateIssuePriorityProps) {
   const restPriorities = IssuePriorities.filter((s) => s !== issue.priority);
   const mutation = useUpdateIssuePriority();
 
@@ -28,7 +32,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
 
   return (
     <div className="w-30 h-5.5">
-      <Dropdown.Open menuName={`issue-${issue.id}-priority`}>
+      <Dropdown.Open menuName={`issue-${issue.id}-priority-from-${from}`}>
         <button
           key={issue.priority}
           className="w-30 grid grid-cols-[min-content_1fr_min-content] items-center gap-1 px-2 py-0.75 rounded-sm font-medium uppercase leading-none bg-gray-primary-light cursor-pointer"
@@ -41,7 +45,7 @@ export function UpdateIssuePriority({ issue }: UpdateIssuePriorityProps) {
         </button>
       </Dropdown.Open>
       <Dropdown.Menu
-        name={`issue-${issue.id}-priority`}
+        name={`issue-${issue.id}-priority-from-${from}`}
         className="w-30 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden z-50"
       >
         {restPriorities.map((priority) => {

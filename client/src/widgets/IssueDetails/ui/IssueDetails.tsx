@@ -44,7 +44,7 @@ export function IssueDetails() {
         </Row>
         <Row>
           <Heading className="mb-0">Priority</Heading>
-          <UpdateIssuePriority issue={issue} />
+          <UpdateIssuePriority issue={issue} from="issue-details" />
         </Row>
       </Columns>
       <Columns>
