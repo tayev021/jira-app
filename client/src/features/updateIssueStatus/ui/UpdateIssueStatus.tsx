@@ -10,9 +10,13 @@ import { Dropdown } from '../../../shared/ui/Dropdown';
 
 interface UpdateIssueStatusProps {
   issue: Issue;
+  from?: string;
 }
 
-export function UpdateIssueStatus({ issue }: UpdateIssueStatusProps) {
+export function UpdateIssueStatus({
+  issue,
+  from = '',
+}: UpdateIssueStatusProps) {
   const restStatuses = IssueStatuses.filter((s) => s !== issue.status);
   const mutation = useUpdateIssueStatus();
 
@@ -27,7 +31,7 @@ export function UpdateIssueStatus({ issue }: UpdateIssueStatusProps) {
 
   return (
     <div className="w-32 h-5.5">
-      <Dropdown.Open menuName={`issue-${issue.id}-status`}>
+      <Dropdown.Open menuName={`issue-${issue.id}-status-from-${from}`}>
         <button
           key={issue.status}
           className="w-32 flex gap-1 justify-between px-2 py-1 rounded-sm font-medium uppercase leading-none bg-gray-primary-light cursor-pointer"
@@ -37,7 +41,7 @@ export function UpdateIssueStatus({ issue }: UpdateIssueStatusProps) {
         </button>
       </Dropdown.Open>
       <Dropdown.Menu
-        name={`issue-${issue.id}-status`}
+        name={`issue-${issue.id}-status-from-${from}`}
         className="w-32 mt-1.5 border border-gray-primary rounded-sm flex flex-col leading-none bg-primary-bg shadow-md overflow-hidden z-50"
       >
         {restStatuses.map((status) => (

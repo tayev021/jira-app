@@ -40,7 +40,7 @@ export function IssueDetails() {
       <Columns>
         <Row>
           <Heading className="mb-0">Status</Heading>
-          <UpdateIssueStatus issue={issue} />
+          <UpdateIssueStatus issue={issue} from="issue-details" />
         </Row>
         <Row>
           <Heading className="mb-0">Priority</Heading>
