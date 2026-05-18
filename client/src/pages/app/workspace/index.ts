@@ -1,5 +1,5 @@
-import { SummaryPage } from './summary';
-import { IssuesPage } from './issues';
-import { BoardPage } from './board';
+import { BoardPage } from './board/BoardPage';
+import { IssuesPage } from './issues/IssuesPage';
+import { SummaryPage } from './summary/SummaryPage';
 
 export { SummaryPage, IssuesPage, BoardPage };
