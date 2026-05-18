@@ -4,6 +4,8 @@ import { Field } from './Field';
 import { Label } from './Label';
 import { Input } from './Input';
 import { TextArea } from './TextArea';
+import { Select } from './Select';
+import { Option } from './Option';
 import { InputError } from './InputError';
 import { Submit } from './Submit';
 import { cn } from '../../utils/cn';
@@ -19,6 +21,8 @@ type FormComponent = FC<FormProps> & {
   Label: typeof Label;
   Input: typeof Input;
   TextArea: typeof TextArea;
+  Select: typeof Select;
+  Option: typeof Option;
   InputError: typeof InputError;
   Submit: typeof Submit;
 };
@@ -42,6 +46,8 @@ Form.Field = Field;
 Form.Label = Label;
 Form.Input = Input;
 Form.TextArea = TextArea;
+Form.Select = Select;
+Form.Option = Option;
 Form.InputError = InputError;
 Form.Submit = Submit;
 
