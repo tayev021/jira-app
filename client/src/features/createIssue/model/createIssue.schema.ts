@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { IssuePriorities } from '../../../shared/types/IssuePriority';
 
 export const createIssueSchema = z.object({
   title: z
@@ -11,6 +12,7 @@ export const createIssueSchema = z.object({
     .trim()
     .min(2, 'Issue description must be at least 2 characters')
     .max(4096, 'Issue description must be less than 4096 characters'),
+  priority: z.enum(IssuePriorities).optional(),
 });
 
 export type CreateIssueSchema = z.infer<typeof createIssueSchema>;
