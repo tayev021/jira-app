@@ -5,26 +5,22 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
-import { useLocation, useNavigate } from 'react-router';
 import { cn } from '../utils/cn';
 import { HiOutlineXMark } from 'react-icons/hi2';
 
 interface DrawerProps {
   children: ReactNode;
   className?: string;
+  close: () => void;
 }
 
-export function Drawer({ children, className = '' }: DrawerProps) {
-  const location = useLocation();
-  const navigate = useNavigate();
+export function Drawer({ children, className = '', close }: DrawerProps) {
   const [isClosing, setIsClosing] = useState(false);
 
   const closeDrawer = useCallback(() => {
     setIsClosing(true);
-    setTimeout(() => {
-      navigate(location.state?.backgroundLocation || '/');
-    }, 400);
-  }, [location, navigate]);
+    setTimeout(close, 400);
+  }, [close]);
 
   useEffect(
     function () {
