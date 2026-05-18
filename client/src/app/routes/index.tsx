@@ -32,8 +32,12 @@ export function AppRouter() {
             <Route index element={<AppHomePage />} />
             <Route path="workspace/:workspaceId" element={<WorkspaceLayout />}>
               <Route index element={<SummaryPage />} />
-              <Route path="issues" element={<IssuesPage />} />
-              <Route path="board" element={<BoardPage />} />
+              <Route path="issues" element={<IssuesPage />}>
+                <Route path=":issueId" element={<IssueDetails />} />
+              </Route>
+              <Route path="board" element={<BoardPage />}>
+                <Route path="issues/:issueId" element={<IssueDetails />} />
+              </Route>
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
