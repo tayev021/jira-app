@@ -24,6 +24,7 @@ class IssueValidation {
       .string('Workspace ID must be a string')
       .trim()
       .length(24, 'Workspace ID must be 24 characters'),
+    priority: z.enum(IssuePriorities).optional(),
   });
   updateTitleSchema = z.object({
     title: z
