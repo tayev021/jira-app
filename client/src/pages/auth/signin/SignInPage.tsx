@@ -1,4 +1,4 @@
-import { SignInForm } from '../../../../features/signIn';
+import { SignInForm } from '../../../features/signIn';
 
 export function SignInPage() {
   return (

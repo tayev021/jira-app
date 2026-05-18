@@ -1,4 +1,4 @@
-import { SignInPage } from './signin';
-import { SignUpPage } from './signup';
+import { SignInPage } from './signin/SignInPage';
+import { SignUpPage } from './signup/SignUpPage';
 
 export { SignInPage, SignUpPage };
