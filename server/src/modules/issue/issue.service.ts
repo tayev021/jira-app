@@ -44,10 +44,11 @@ class IssueService {
   create = async (data: {
     title: string;
     description: string;
+    priority: string;
     workspaceId: string;
     currentUserId: string;
   }) => {
-    const { title, description, workspaceId, currentUserId } = data;
+    const { title, description, priority, workspaceId, currentUserId } = data;
     const workspace = await findWorkspaceById(workspaceId);
 
     await restrictToMember(workspace, currentUserId);
@@ -58,6 +59,7 @@ class IssueService {
       sequenceNumber: seq,
       title,
       description,
+      priority,
       workspaceId,
       reporterId: currentUserId,
     });
