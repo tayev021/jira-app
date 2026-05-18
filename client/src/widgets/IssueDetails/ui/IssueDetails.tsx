@@ -1,4 +1,5 @@
 import { useIssue } from '../../../entities/issue';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { Drawer } from '../../../shared/ui/Drawer';
 import { Columns } from './Columns';
 import { Heading } from './Heading';
@@ -13,12 +14,24 @@ import { Actions } from './Actions';
 
 export function IssueDetails() {
   const { issue, isLoading } = useIssue();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { workspaceId } = useParams();
 
   if (isLoading) return <div>Loading placeholder...</div>;
   if (!issue) return null;
 
+  function handleClose() {
+    const isBoardPage = location.pathname.includes('board');
+
+    navigate(
+      location.state?.backgroundLocation ||
+        `/app/workspace/${workspaceId}/${isBoardPage ? 'board' : 'issues'}`
+    );
+  }
+
   return (
-    <Drawer className="flex flex-col gap-5 px-5 py-4">
+    <Drawer className="flex flex-col gap-5 px-5 py-4" close={handleClose}>
       <div className="h-7 flex justify-center items-center gap-4 pl-12 mb-2 text-lg leading-none">
         <h3 className="font-semibold text-primary text-nowrap">{issue.slug}</h3>
         <h3 className="font-medium truncate">{issue.title}</h3>
