@@ -1,9 +1,9 @@
-import { CurrentUser } from '../shared/types/CurrentUser';
+import { User } from '../shared/types/User';
 
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: CurrentUser | null;
+      currentUser?: User | null;
     }
   }
 }

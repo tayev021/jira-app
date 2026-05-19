@@ -1,4 +1,4 @@
-export type CurrentUser = {
+export type User = {
   id: string;
   name: string;
   surname: string;
