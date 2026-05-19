@@ -1,6 +1,6 @@
 import { PopulatedIssue } from '../../modules/issue/issue.model';
 import { Issue } from '../types/Issue';
-import { mapIssueUser } from './mapIssueUser';
+import { mapUser } from './mapUser';
 
 export function mapIssue(issue: PopulatedIssue): Issue {
   return {
@@ -9,8 +9,8 @@ export function mapIssue(issue: PopulatedIssue): Issue {
     title: issue.title,
     description: issue.description,
     workspaceId: issue.workspaceId.toString(),
-    reporter: mapIssueUser(issue.reporterId),
-    assignees: issue.assigneeIds.map((assignee) => mapIssueUser(assignee)),
+    reporter: mapUser(issue.reporterId),
+    assignees: issue.assigneeIds.map((assignee) => mapUser(assignee)),
     status: issue.status,
     priority: issue.priority,
     createdAt: issue.createdAt.toISOString(),
