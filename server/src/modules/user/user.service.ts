@@ -1,3 +1,4 @@
+import { mapUser } from '../../shared/utils/mapUser';
 import { User } from './user.model';
 
 class UserService {
@@ -12,6 +13,17 @@ class UserService {
 
   getUserByEmail = async (email: string) => {
     return User.findOne({ email }).select('+password');
+  };
+
+  searchUsers = async (data: { query: string }) => {
+    const users = await User.find({
+      $or: [
+        { name: { $regex: data.query, $options: 'i' } },
+        { surname: { $regex: data.query, $options: 'i' } },
+      ],
+    }).limit(10);
+
+    return { users: users.map(mapUser) };
   };
 }
 
