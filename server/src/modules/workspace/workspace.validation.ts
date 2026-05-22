@@ -24,7 +24,7 @@ class WorkspaceValidation {
       ),
   });
   addMemberSchema = z.object({
-    memberId: z
+    userId: z
       .string('Member ID must be a string')
       .trim()
       .length(24, 'Member ID must be 24 characters'),
