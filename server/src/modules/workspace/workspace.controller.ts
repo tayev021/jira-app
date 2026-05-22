@@ -27,12 +27,12 @@ class WorkspaceController {
   });
 
   addMember = catchAsync(async (req: Request, res: Response) => {
-    const { workspace } = await workspaceService.addMember({
+    const { member } = await workspaceService.addMember({
       workspaceId: req.params.workspaceId as string,
-      memberId: req.body.memberId,
+      userId: req.body.userId,
       currentUserId: req.currentUser!.id,
     });
-    res.status(200).json({ success: true, data: { workspace } });
+    res.status(200).json({ success: true, data: { member } });
   });
 
   deleteMember = catchAsync(async (req: Request, res: Response) => {
