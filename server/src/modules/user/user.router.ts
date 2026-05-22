@@ -6,11 +6,13 @@ import { userValidation } from './user.validation';
 
 const userRouter = Router();
 
+userRouter.get('/', protect, userController.getUsers);
 userRouter.get(
   '/search',
   protect,
   validateQueryParams(userValidation.searchUsers),
   userController.searchUsers
 );
+userRouter.delete('/', protect, userController.deleteAccount);
 
 export { userRouter };
