@@ -1,10 +1,8 @@
-import { useParams } from 'react-router';
 import { useWorkspace } from '../../../../entities/workspace';
 import { HiCubeTransparent } from 'react-icons/hi2';
 
 export function Heading() {
-  const { workspaceId } = useParams();
-  const { workspace } = useWorkspace(workspaceId!);
+  const { workspace } = useWorkspace();
 
   return (
     <div className="flex flex-col gap-2">
