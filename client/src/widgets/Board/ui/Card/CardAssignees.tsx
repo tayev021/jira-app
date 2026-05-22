@@ -6,6 +6,8 @@ interface CardAssigneesProps {
 }
 
 export function CardAssignees({ assignees }: CardAssigneesProps) {
+  const firstThree = assignees.slice(0, 3);
+
   return (
     <div className="flex justify-between items-center  gap-2">
       <span className="italic">assignees</span>
@@ -13,13 +15,22 @@ export function CardAssignees({ assignees }: CardAssigneesProps) {
         {assignees.length <= 0 ? (
           <NoUserAvatar />
         ) : (
-          assignees.map((assignee) => (
-            <UserAvatarLink
-              key={assignee.id}
-              to={`/user/${assignee.id}/profile`}
-              user={assignee}
-            />
-          ))
+          <ul className="flex gap-0.5">
+            {firstThree.map((assignee) => (
+              <li>
+                <UserAvatarLink
+                  key={assignee.id}
+                  to={`/user/${assignee.id}/profile`}
+                  user={assignee}
+                />
+              </li>
+            ))}
+            {assignees.length - 3 > 0 ? (
+              <li className="font-bold text-base text-primary">
+                +{assignees.length - 3}
+              </li>
+            ) : null}
+          </ul>
         )}
       </div>
     </div>
