@@ -7,7 +7,8 @@ import { restrictToMember } from '../../shared/utils/restrictToMember';
 import mongoose from 'mongoose';
 import { generateUniqueSlug } from './utils/generateUniqueSlug';
 import { Issue } from '../issue/issue.model';
-import { ForbiddenError } from '../../shared/errors';
+import { ApiError, ForbiddenError } from '../../shared/errors';
+import { mapUser } from '../../shared/utils/mapUser';
 
 class WorkspaceService {
   getWorkspaces = async (data: { currentUserId: string }) => {
@@ -76,23 +77,24 @@ class WorkspaceService {
 
   addMember = async (data: {
     workspaceId: string;
-    memberId: string;
+    userId: string;
     currentUserId: string;
   }) => {
-    const { workspaceId, memberId, currentUserId } = data;
+    const { workspaceId, userId, currentUserId } = data;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+    }
+
     const workspace = await findWorkspaceById(workspaceId);
 
     await restrictToOwner(workspace, currentUserId);
 
-    workspace.memberIds.push(new mongoose.Types.ObjectId(memberId));
+    workspace.memberIds.push(new mongoose.Types.ObjectId(userId));
     await workspace.save();
 
-    const populatedWorkspace = await workspace.populate<{
-      ownerId: User;
-      memberIds: User[];
-    }>(['ownerId', 'memberIds']);
-
-    return { workspace: mapWorkspace(populatedWorkspace) };
+    return { member: mapUser(user) };
   };
 
   deleteMember = async (data: {
