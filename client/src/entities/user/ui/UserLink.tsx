@@ -13,7 +13,10 @@ export function UserLink({ user, className = '' }: UserLinkProps) {
   return (
     <Link
       to={`/user/${user.id}/profile`}
-      className={cn('h-6 group flex items-center gap-2 text-sm', className)}
+      className={cn(
+        'h-6 group flex items-center gap-2 text-sm overflow-hidden',
+        className
+      )}
     >
       <span
         className={
@@ -22,7 +25,7 @@ export function UserLink({ user, className = '' }: UserLinkProps) {
       >
         {initials}
       </span>
-      <span className="text-[1.05em] group-hover:text-primary">
+      <span className="text-[1.05em] group-hover:text-primary truncate">
         {user.name} {user.surname}
       </span>
     </Link>
