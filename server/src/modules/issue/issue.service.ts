@@ -184,6 +184,16 @@ class IssueService {
       'This assignee not a member of this workspace'
     );
 
+    const isAssigned = issue.assigneeIds.includes(
+      new mongoose.Types.ObjectId(assigneeId)
+    );
+
+    if (isAssigned) {
+      throw new ForbiddenError(
+        'This assignee has already been assigned to this issue'
+      );
+    }
+
     issue.assigneeIds.push(new mongoose.Types.ObjectId(assigneeId));
     await issue.save();
 
