@@ -7,6 +7,10 @@ class UserValidation {
       .trim()
       .min(2, 'Query must be at least 2 characters')
       .max(50, 'Query must be less than 50 characters'),
+    workspaceId: z
+      .string('Workspace ID must be a string')
+      .trim()
+      .length(24, 'Workspace ID must be 24 characters'),
   });
 }
 
