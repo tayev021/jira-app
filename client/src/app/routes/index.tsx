@@ -11,6 +11,7 @@ import {
 } from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
 import { IssueDetails } from '../../widgets/IssueDetails';
+import { MembersPage } from '../../pages/app/workspace';
 
 export function AppRouter() {
   const location = useLocation();
@@ -32,6 +33,7 @@ export function AppRouter() {
             <Route index element={<AppHomePage />} />
             <Route path="workspace/:workspaceId" element={<WorkspaceLayout />}>
               <Route index element={<SummaryPage />} />
+              <Route path="members" element={<MembersPage />} />
               <Route path="issues" element={<IssuesPage />}>
                 <Route path=":issueId" element={<IssueDetails />} />
               </Route>
