@@ -10,6 +10,7 @@ import { UpdateIssuePriority } from '../../../features/updateIssuePriority';
 import { UserLink } from '../../../entities/user';
 import { UpdateIssueDescription } from '../../../features/updateIssueDescription';
 import { Assignees } from './Assignees';
+import { AddAssigneeButton } from './AddAssigneeButton';
 import { Actions } from './Actions';
 
 export function IssueDetails() {
@@ -67,7 +68,8 @@ export function IssueDetails() {
         </div>
         <div>
           <Heading>Assignees</Heading>
-          <Assignees assignees={issue.assignees} />
+          <Assignees issue={issue} />
+          <AddAssigneeButton issue={issue} />
         </div>
       </Columns>
       <Actions issue={issue} />
