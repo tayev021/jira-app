@@ -20,10 +20,12 @@ class IssueController {
   });
 
   create = catchAsync(async (req: Request, res: Response) => {
+    const { title, description, priority, workspaceId } = req.body;
     const { issue } = await issueService.create({
-      title: req.body.title,
-      description: req.body.description,
-      workspaceId: req.body.workspaceId,
+      title,
+      description,
+      priority,
+      workspaceId,
       currentUserId: req.currentUser!.id,
     });
     res.status(200).json({ success: true, data: { issue } });

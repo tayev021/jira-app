@@ -13,12 +13,12 @@ export function Issues() {
   if (isError) return <div>Error placeholder...</div>;
 
   return (
-    <div>
-      <div className="overflow-x-auto">
+    <div className="flex flex-col overflow-hidden">
+      <div className="overflow-auto">
         {issues?.length ? <Table issues={issues || []} /> : <NoIssues />}
       </div>
       <Modal.Open modalName="create-issue">
-        <Button className="flex items-center gap-2 mt-5 mx-auto">
+        <Button className="flex items-center gap-2 mt-4 mb-2 px-2 py-1 mx-auto border border-gray-primary rounded-sm text-gray-primary shadow-sm hover:shadow-lg">
           <HiPlus className="text-lg" />
           Create Issue
         </Button>

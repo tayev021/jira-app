@@ -1,7 +1,7 @@
-import { User } from '../../modules/user/user.model';
-import { CurrentUser } from '../types/CurrentUser';
+import { User as UserModel } from '../../modules/user/user.model';
+import { User } from '../types/User';
 
-export function mapUser(user: User): CurrentUser {
+export function mapUser(user: UserModel): User {
   return {
     id: user._id.toString(),
     name: user.name,

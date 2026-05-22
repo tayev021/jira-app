@@ -1,4 +1,9 @@
-import { HiOutlineGlobeAlt, HiOutlineTableCells } from 'react-icons/hi2';
+import {
+  HiOutlineGlobeAlt,
+  HiOutlineTableCells,
+  HiOutlineUserGroup,
+  HiOutlineViewColumns,
+} from 'react-icons/hi2';
 import { NavTab } from './NavTab';
 
 export function Nav() {
@@ -9,9 +14,17 @@ export function Nav() {
           <HiOutlineGlobeAlt className="text-xl" />
           Summary
         </NavTab>
+        <NavTab to="members">
+          <HiOutlineUserGroup className="text-xl" />
+          Members
+        </NavTab>
         <NavTab to="issues">
           <HiOutlineTableCells className="text-xl" />
           Issues
+        </NavTab>
+        <NavTab to="board">
+          <HiOutlineViewColumns className="text-xl" />
+          Board
         </NavTab>
       </ul>
     </nav>

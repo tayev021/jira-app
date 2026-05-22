@@ -1,3 +1,4 @@
+import { useIssue } from './hooks/useIssue';
 import { useIssues } from './hooks/useIssues';
 
-export { useIssues };
+export { useIssue, useIssues };

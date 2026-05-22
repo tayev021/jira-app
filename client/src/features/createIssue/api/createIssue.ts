@@ -1,11 +1,13 @@
 import { api } from '../../../shared/api/api';
 import type { ApiResponse } from '../../../shared/types/ApiResponse';
 import type { Issue } from '../../../shared/types/Issue';
+import type { IssuePriority } from '../../../shared/types/IssuePriority';
 import { ApiError } from '../../../shared/utils/ApiError';
 
 export async function createIssue(data: {
   title: string;
   description: string;
+  priority?: IssuePriority;
   workspaceId: string;
 }): Promise<Issue> {
   const response = await api('/issues', {

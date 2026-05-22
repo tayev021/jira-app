@@ -1,15 +1,28 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { Routes, Route, useLocation, type Location } from 'react-router';
 import { MainLayout } from '../layouts/MainLayout';
 import { HomePage } from '../../pages/home';
 import { SignInPage, SignUpPage } from '../../pages/auth';
 import { ProtectedRoute } from './ProtectedRoute';
-import { AppHomePage, IssuesPage, SummaryPage } from '../../pages/app';
+import {
+  AppHomePage,
+  BoardPage,
+  IssuesPage,
+  SummaryPage,
+} from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
+import { IssueDetails } from '../../widgets/IssueDetails';
+import { MembersPage } from '../../pages/app/workspace';
 
 export function AppRouter() {
+  const location = useLocation();
+  const locationState = location.state as {
+    backgroundLocation?: Location;
+  };
+  const backgroundLocation = locationState?.backgroundLocation;
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Routes location={backgroundLocation || location}>
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="auth">
@@ -20,7 +33,13 @@ export function AppRouter() {
             <Route index element={<AppHomePage />} />
             <Route path="workspace/:workspaceId" element={<WorkspaceLayout />}>
               <Route index element={<SummaryPage />} />
-              <Route path="issues" element={<IssuesPage />} />
+              <Route path="members" element={<MembersPage />} />
+              <Route path="issues" element={<IssuesPage />}>
+                <Route path=":issueId" element={<IssueDetails />} />
+              </Route>
+              <Route path="board" element={<BoardPage />}>
+                <Route path="issues/:issueId" element={<IssueDetails />} />
+              </Route>
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
@@ -32,6 +51,19 @@ export function AppRouter() {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+
+      {backgroundLocation && (
+        <Routes>
+          <Route
+            path="/app/workspace/:workspaceId/board/issues/:issueId"
+            element={<IssueDetails />}
+          />
+          <Route
+            path="/app/workspace/:workspaceId/issues/:issueId"
+            element={<IssueDetails />}
+          />
+        </Routes>
+      )}
+    </>
   );
 }

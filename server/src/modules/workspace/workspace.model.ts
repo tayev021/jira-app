@@ -1,4 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
+import { User } from '../user/user.model';
 
 export interface Workspace {
   _id: Types.ObjectId;
@@ -9,6 +10,11 @@ export interface Workspace {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type PopulatedWorkspace = Omit<Workspace, 'ownerId' | 'memberIds'> & {
+  ownerId: User;
+  memberIds: User[];
+};
 
 const workspaceSchema = new Schema<Workspace>(
   {

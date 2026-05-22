@@ -1,4 +1,4 @@
-import { AppHomePage } from './home';
-import { IssuesPage, SummaryPage } from './workspace';
+import { AppHomePage } from './home/AppHomePage';
+import { BoardPage, IssuesPage, SummaryPage } from './workspace';
 
-export { AppHomePage, SummaryPage, IssuesPage };
+export { AppHomePage, SummaryPage, IssuesPage, BoardPage };

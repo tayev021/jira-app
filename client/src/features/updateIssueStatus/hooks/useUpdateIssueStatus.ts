@@ -21,6 +21,10 @@ export function useUpdateIssueStatus() {
           ['issues', workspaceId, currentUser?.id],
           (prev = []) => prev.map((i) => (i.id === issue.id ? issue : i))
         );
+        queryClient.setQueryData<Issue>(
+          ['issue', issue.id, currentUser?.id],
+          issue
+        );
       },
     }
   );
