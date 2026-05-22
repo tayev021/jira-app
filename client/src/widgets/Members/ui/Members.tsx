@@ -9,19 +9,16 @@ export function Members() {
   if (!workspace) return null;
 
   return (
-    <div className="h-full grid grid-cols-[repeat(2,minmax(max-content,350px))] justify-center gap-5 overflow-y-auto">
+    <div className="h-full grid grid-cols-[repeat(2,minmax(150px,350px))] justify-center gap-5 overflow-y-auto">
       <div className="relative rounded-sm bg-secondary-bg shadow-md">
         <div className="sticky top-0 h-10 flex items-center justify-center p-2 border-b border-gray-primary-light rounded-md bg-secondary-bg shadow-sm z-10">
           <h4 className="font-semibold text-base text-gray-primary uppercase leading-none">
             Workspace owner
           </h4>
         </div>
-        <ul className="flex flex-col gap-2 px-5 py-3">
+        <ul className="flex flex-col items-start gap-2 p-5 pt-8">
           <li>
-            <UserLink
-              className="inline-flex h-8 text-sm"
-              user={workspace.owner}
-            />
+            <UserLink className="h-8 text-sm" user={workspace.owner} />
           </li>
         </ul>
       </div>
@@ -40,7 +37,7 @@ export function Members() {
               member.id !== workspace.owner.id ? (
                 <li
                   key={member.id}
-                  className="group flex justify-between items-center"
+                  className="group flex justify-between items-center gap-5"
                 >
                   <UserLink className="h-8 text-sm" user={member} />
                   <DeleteMember memberId={member.id} />
