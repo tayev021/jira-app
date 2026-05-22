@@ -1,9 +1,9 @@
-import { NoUserAvatar, UserLink } from '../../../../../entities/user';
-import type { IssueUser } from '../../../../../shared/types/IssueUser';
+import type { User } from '../../../../../shared/types/User';
 import { Cell } from './Cell';
+import { NoUserAvatar, UserLink } from '../../../../../entities/user';
 
 interface AssigneesCellProps {
-  assignees: IssueUser[];
+  assignees: User[];
 }
 
 export function AssigneesCell({ assignees }: AssigneesCellProps) {

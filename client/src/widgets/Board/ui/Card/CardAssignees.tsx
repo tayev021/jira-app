@@ -1,8 +1,8 @@
-import type { IssueUser } from '../../../../shared/types/IssueUser';
+import type { User } from '../../../../shared/types/User';
 import { NoUserAvatar, UserAvatarLink } from '../../../../entities/user';
 
 interface CardAssigneesProps {
-  assignees: IssueUser[];
+  assignees: User[];
 }
 
 export function CardAssignees({ assignees }: CardAssigneesProps) {
