@@ -17,7 +17,7 @@ export function CardAssignees({ assignees }: CardAssigneesProps) {
         ) : (
           <ul className="flex gap-0.5">
             {firstThree.map((assignee) => (
-              <li>
+              <li key={assignee.id}>
                 <UserAvatarLink
                   key={assignee.id}
                   to={`/user/${assignee.id}/profile`}
