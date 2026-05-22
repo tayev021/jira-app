@@ -11,9 +11,9 @@ interface ActionsCellProps {
 
 export function ActionsCell({ issue }: ActionsCellProps) {
   return (
-    <Cell className="flex justify-center">
+    <Cell>
       <Modal.Open modalName={`delete-issue-${issue.id}`}>
-        <Button className="flex items-center text-lg text-gray-primary hover:text-red-primary">
+        <Button className="flex items-center mx-auto text-lg text-gray-primary hover:text-red-primary">
           <HiOutlineTrash />
         </Button>
       </Modal.Open>

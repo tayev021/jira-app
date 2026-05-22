@@ -17,7 +17,7 @@ export function AssigneesCell({ assignees }: AssigneesCellProps) {
   }
 
   return (
-    <Cell>
+    <Cell className="flex flex-col gap-1">
       {assignees.map((assignee) => (
         <UserLink key={assignee.id} user={assignee} />
       ))}
