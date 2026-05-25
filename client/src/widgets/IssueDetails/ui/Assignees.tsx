@@ -1,6 +1,8 @@
 import type { Issue } from '../../../shared/types/Issue';
 import { NoUserAvatar, UserLink } from '../../../entities/user';
 import { useDeleteAssignee } from '../../../features/deleteAssignee';
+import { useAuth } from '../../../shared/hooks/useAuth';
+import { useWorkspace } from '../../../entities/workspace';
 import toast from 'react-hot-toast';
 import { Button } from '../../../shared/ui/Button';
 
@@ -10,6 +12,8 @@ interface AssigneesProps {
 
 export function Assignees({ issue }: AssigneesProps) {
   const mutation = useDeleteAssignee(issue.id);
+  const { currentUser } = useAuth();
+  const { workspace } = useWorkspace();
 
   function handleUnassign(assigneeId: string) {
     mutation.mutate(
@@ -33,7 +37,11 @@ export function Assignees({ issue }: AssigneesProps) {
             <li key={assignee.id} className="group flex justify-between gap-2">
               <UserLink key={assignee.id} user={assignee} />
               <Button
-                className="hidden px-2 py-1 rounded-full font-medium text-xs text-secondary-text bg-orange-primary cursor-pointer hover:bg-red-primary group-hover:inline-block"
+                className="hidden px-2 py-1 rounded-full font-medium text-xs text-secondary-text bg-orange-primary cursor-pointer hover:bg-red-primary group-hover:inline-block disabled:cursor-not-allowed"
+                disabled={
+                  currentUser?.id !== issue.reporter.id &&
+                  currentUser?.id !== workspace?.owner.id
+                }
                 onClick={() => handleUnassign(assignee.id)}
               >
                 Unassign
