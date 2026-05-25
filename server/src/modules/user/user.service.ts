@@ -1,8 +1,11 @@
 import { ApiError, ForbiddenError } from '../../shared/errors';
 import { mapUser } from '../../shared/utils/mapUser';
+import { removeFile } from '../../shared/utils/removeFile';
 import { Issue } from '../issue/issue.model';
 import { Workspace } from '../workspace/workspace.model';
 import { User } from './user.model';
+import { v4 as uuid } from 'uuid';
+import sharp from 'sharp';
 
 class UserService {
   getUsers = async () => {
@@ -43,6 +46,37 @@ class UserService {
     }).limit(10);
 
     return { users: users.map(mapUser) };
+  };
+
+  updateAvatar = async (data: {
+    file: Express.Multer.File | undefined;
+    currentUserId: string;
+  }) => {
+    const { file, currentUserId } = data;
+
+    if (!file) {
+      throw new ApiError(400, 'ERROR', 'Please upload only correct images');
+    }
+
+    const user = await User.findById(currentUserId);
+
+    if (!user) {
+      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+    }
+
+    const avatarFileName = `avatar-${uuid()}.jpeg`;
+    const avatarPath = `public/images/avatars/${avatarFileName}`;
+
+    if (user.avatar) {
+      removeFile(`public/images/avatars/${user.avatar}`);
+    }
+
+    user.avatar = avatarFileName;
+
+    await sharp(file.buffer).toFile(avatarPath);
+    await user.save();
+
+    return { user: mapUser(user) };
   };
 
   deleteAccount = async (data: { userId: string }) => {
