@@ -16,6 +16,14 @@ class UserController {
     res.status(200).json({ success: true, data: { users } });
   });
 
+  updateAvatar = catchAsync(async (req: Request, res: Response) => {
+    const { user } = await userService.updateAvatar({
+      file: req.file,
+      currentUserId: req.currentUser!.id,
+    });
+    res.status(200).json({ success: true, data: { user } });
+  });
+
   deleteAccount = catchAsync(async (req: Request, res: Response) => {
     await userService.deleteAccount({ userId: req.currentUser!.id });
     res.status(200).json({ success: true, data: {} });
