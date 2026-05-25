@@ -1,9 +1,11 @@
-import { UserLink } from '../../../entities/user';
+import { useAuth } from '../../../shared/hooks/useAuth';
 import { useWorkspace } from '../../../entities/workspace';
+import { UserLink } from '../../../entities/user';
 import { DeleteMember } from '../../../features/deleteMember';
 import { InviteMember } from './InviteMember';
 
 export function Members() {
+  const { currentUser } = useAuth();
   const { workspace } = useWorkspace();
 
   if (!workspace) return null;
@@ -40,7 +42,9 @@ export function Members() {
                   className="group flex justify-between items-center gap-5"
                 >
                   <UserLink className="h-8 text-sm" user={member} />
-                  <DeleteMember memberId={member.id} />
+                  {currentUser?.id === workspace.owner.id && (
+                    <DeleteMember memberId={member.id} />
+                  )}
                 </li>
               ) : null
             )}
@@ -50,7 +54,7 @@ export function Members() {
             There are no members in this workspace
           </p>
         )}
-        <InviteMember />
+        {currentUser?.id === workspace.owner.id && <InviteMember />}
       </div>
     </div>
   );
