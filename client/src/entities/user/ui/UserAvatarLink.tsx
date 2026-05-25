@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import type { User } from '../../../shared/types/User';
 import { cn } from '../../../shared/utils/cn';
+import { SERVER_URL } from '../../../shared/constants';
 
 interface UserAvatarLinkProps {
   user: Pick<User, 'id' | 'name' | 'surname' | 'avatar'>;
@@ -23,7 +24,15 @@ export function UserAvatarLink({
         className
       )}
     >
-      {initials}
+      {user.avatar ? (
+        <img
+          src={`${SERVER_URL}/images/avatars/${user.avatar}`}
+          alt={`${user.name} ${user.surname} avatar`}
+          className="h-full aspect-square rounded-full"
+        />
+      ) : (
+        <span>{initials}</span>
+      )}
     </Link>
   );
 }
