@@ -1,4 +1,5 @@
 import {
+  HiOutlineCog6Tooth,
   HiOutlineGlobeAlt,
   HiOutlineTableCells,
   HiOutlineUserGroup,
@@ -25,6 +26,10 @@ export function Nav() {
         <NavTab to="board">
           <HiOutlineViewColumns className="text-xl" />
           Board
+        </NavTab>
+        <NavTab to="settings">
+          <HiOutlineCog6Tooth className="text-xl" />
+          Settings
         </NavTab>
       </ul>
     </nav>
