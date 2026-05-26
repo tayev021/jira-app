@@ -7,11 +7,12 @@ import {
   AppHomePage,
   BoardPage,
   IssuesPage,
+  MembersPage,
+  SettingsPage,
   SummaryPage,
 } from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
 import { IssueDetails } from '../../widgets/IssueDetails';
-import { MembersPage } from '../../pages/app/workspace';
 
 export function AppRouter() {
   const location = useLocation();
@@ -40,6 +41,7 @@ export function AppRouter() {
               <Route path="board" element={<BoardPage />}>
                 <Route path="issues/:issueId" element={<IssueDetails />} />
               </Route>
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
