@@ -79,6 +79,20 @@ class UserService {
     return { user: mapUser(user) };
   };
 
+  updateBio = async (data: { bio: string; currentUserId: string }) => {
+    const { bio, currentUserId } = data;
+    const user = await User.findById(currentUserId);
+
+    if (!user) {
+      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+    }
+
+    user.bio = bio;
+    await user.save();
+
+    return { user: mapUser(user) };
+  };
+
   deleteAccount = async (data: { userId: string }) => {
     const { userId } = data;
 
