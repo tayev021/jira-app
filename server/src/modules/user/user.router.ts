@@ -5,6 +5,7 @@ import { validateQueryParams } from '../../shared/middleware/validateQueryParams
 import { userValidation } from './user.validation';
 import { uploadAvatar } from '../../shared/middleware/upload';
 import { resizeAvatar } from '../../shared/middleware/resizeAvatar';
+import { validateBody } from '../../shared/middleware/validateBody';
 
 const userRouter = Router();
 
@@ -21,6 +22,12 @@ userRouter.patch(
   uploadAvatar,
   resizeAvatar,
   userController.updateAvatar
+);
+userRouter.patch(
+  '/bio',
+  protect,
+  validateBody(userValidation.updateBio),
+  userController.updateBio
 );
 userRouter.delete('/', protect, userController.deleteAccount);
 
