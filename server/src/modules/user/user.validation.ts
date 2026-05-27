@@ -12,6 +12,13 @@ class UserValidation {
       .trim()
       .length(24, 'Workspace ID must be 24 characters'),
   });
+  updateBio = z.object({
+    bio: z
+      .string('User bio must be a string')
+      .trim()
+      .min(2, 'User bio must be at least 2 characters')
+      .max(4096, 'User bio must be less than 4096 characters'),
+  });
 }
 
 export const userValidation = new UserValidation();
