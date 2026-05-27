@@ -26,6 +26,17 @@ class IssueService {
     return { issues: issues.map(mapIssue) };
   };
 
+  getMyIssues = async (data: { currentUserId: string }) => {
+    const issues = await Issue.find({
+      assigneeIds: data.currentUserId,
+    }).populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issues: issues.map(mapIssue) };
+  };
+
   getIssue = async (data: { issueId: string; currentUserId: string }) => {
     const { issueId, currentUserId } = data;
     const issue = await findIssueById(issueId);
