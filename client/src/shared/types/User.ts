@@ -4,6 +4,7 @@ export interface User {
   surname: string;
   email: string;
   avatar?: string;
+  bio?: string;
   createdAt: string;
   updatedAt: string;
 }
