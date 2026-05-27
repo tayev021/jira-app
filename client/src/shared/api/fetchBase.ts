@@ -4,15 +4,16 @@ import { ApiError } from '../utils/ApiError';
 
 export async function fetchBase(url: string, options: RequestInit = {}) {
   const accessToken = getAccessToken();
+  const isFormData = options.body instanceof FormData;
   let response: Response;
 
   try {
     response = await fetch(`${API_URL}${url}`, {
       ...options,
       headers: {
-        ...options.headers,
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
         Authorization: `Bearer ${accessToken}`,
+        ...options.headers,
       },
       credentials: 'include',
     });
