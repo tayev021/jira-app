@@ -8,6 +8,7 @@ export function mapUser(user: UserModel): User {
     surname: user.surname,
     email: user.email,
     avatar: user.avatar,
+    bio: user.bio,
     createdAt: user.createdAt.toISOString(),
     updatedAt: user.updatedAt.toISOString(),
   };
