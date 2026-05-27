@@ -11,6 +11,13 @@ class IssueController {
     res.status(200).json({ success: true, data: { issues } });
   });
 
+  getMyIssues = catchAsync(async (req: Request, res: Response) => {
+    const { issues } = await issueService.getMyIssues({
+      currentUserId: req.currentUser!.id,
+    });
+    res.status(200).json({ success: true, data: { issues } });
+  });
+
   getIssue = catchAsync(async (req: Request, res: Response) => {
     const { issue } = await issueService.getIssue({
       issueId: req.params.issueId as string,
