@@ -5,7 +5,7 @@ import { Container } from '../../../../shared/ui/Container';
 
 export function WorkspaceLayout() {
   return (
-    <Container className="h-full flex flex-col gap-5 overflow-hidden">
+    <Container className="flex flex-col gap-5">
       <Heading />
       <Nav />
       <Outlet />
