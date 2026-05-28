@@ -16,23 +16,23 @@ export function Settings() {
   if (!issues) return null;
 
   return (
-    <ul>
+    <ul className="max-w-140 mx-auto">
       <li className="flex flex-col items-center gap-2 p-4 border border-gray-primary-light rounded-sm shadow-sm">
         <h4 className="font-semibold text-base text-center text-purple-primary">
           Delete Workspace
         </h4>
-        <p>
+        <p className="text-center">
           Once you delete your workspace, there is no going back. Please be
           certain
         </p>
 
         {currentUser?.id !== workspace.owner.id && (
-          <p className="font-medium text-red-primary">
+          <p className="font-medium text-center text-red-primary">
             Only the owner of a workspace can delete it
           </p>
         )}
         {currentUser?.id === workspace.owner.id && issues.length > 0 && (
-          <p className="font-medium text-red-primary">
+          <p className="font-medium text-center text-red-primary">
             You cannot delete a workspace while it contains issues in progress
           </p>
         )}
