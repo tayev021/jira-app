@@ -13,6 +13,16 @@ class UserService {
     return { users: users.map(mapUser) };
   };
 
+  getUser = async (data: { userId: string }) => {
+    const user = await User.findById(data.userId);
+
+    if (!user) {
+      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+    }
+
+    return { user: mapUser(user) };
+  };
+
   createUser = async (data: {
     name: string;
     surname: string;
