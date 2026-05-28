@@ -13,6 +13,12 @@ import {
 } from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
 import { IssueDetails } from '../../widgets/IssueDetails';
+import { AccountLayout } from '../layouts/AccountLayout';
+import {
+  AccountBioPage,
+  AccountIssuesPage,
+  AccountSettingsPage,
+} from '../../pages/account';
 
 export function AppRouter() {
   const location = useLocation();
@@ -45,7 +51,13 @@ export function AppRouter() {
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
-            <Route index element={<div>Account Page</div>} />
+            <Route element={<AccountLayout />}>
+              <Route index element={<AccountBioPage />} />
+              <Route path="issues" element={<AccountIssuesPage />}>
+                <Route path=":issueId" element={<IssueDetails />} />
+              </Route>
+              <Route path="settings" element={<AccountSettingsPage />} />
+            </Route>
           </Route>
           <Route
             path="user/:userId/profile"
@@ -64,6 +76,7 @@ export function AppRouter() {
             path="/app/workspace/:workspaceId/issues/:issueId"
             element={<IssueDetails />}
           />
+          <Route path="/account/issues/:issueId" element={<IssueDetails />} />
         </Routes>
       )}
     </>
