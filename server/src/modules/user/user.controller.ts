@@ -8,6 +8,13 @@ class UserController {
     res.status(200).json({ success: true, data: { users } });
   });
 
+  getUser = catchAsync(async (req: Request, res: Response) => {
+    const { user } = await userService.getUser({
+      userId: req.params.userId as string,
+    });
+    res.status(200).json({ success: true, data: { user } });
+  });
+
   searchUsers = catchAsync(async (req: Request, res: Response) => {
     const { users } = await userService.searchUsers({
       query: req.query.query as string,
