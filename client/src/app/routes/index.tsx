@@ -19,6 +19,7 @@ import {
   AccountIssuesPage,
   AccountSettingsPage,
 } from '../../pages/account';
+import { ProfilePage } from '../../pages/profile';
 
 export function AppRouter() {
   const location = useLocation();
@@ -59,10 +60,7 @@ export function AppRouter() {
               <Route path="settings" element={<AccountSettingsPage />} />
             </Route>
           </Route>
-          <Route
-            path="user/:userId/profile"
-            element={<div>User Profile Page</div>}
-          />
+          <Route path="profile/:userId" element={<ProfilePage />} />
         </Route>
       </Routes>
 
