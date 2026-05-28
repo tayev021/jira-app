@@ -1,5 +1,6 @@
 import { useIssue } from '../../../entities/issue';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { trim } from '../utils/trim';
 import { Drawer } from '../../../shared/ui/Drawer';
 import { Columns } from './Columns';
 import { Heading } from './Heading';
@@ -17,17 +18,17 @@ export function IssueDetails() {
   const { issue, isLoading } = useIssue();
   const location = useLocation();
   const navigate = useNavigate();
-  const { workspaceId } = useParams();
 
   if (isLoading) return <div>Loading placeholder...</div>;
   if (!issue) return null;
 
   function handleClose() {
     const isBoardPage = location.pathname.includes('board');
+    const trimmedPath = trim(location.pathname);
 
     navigate(
       location.state?.backgroundLocation ||
-        `/app/workspace/${workspaceId}/${isBoardPage ? 'board' : 'issues'}`
+        `${isBoardPage ? trim(trimmedPath) : trimmedPath}`
     );
   }
 
