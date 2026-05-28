@@ -13,7 +13,7 @@ export function UserLink({ user, className = '' }: UserLinkProps) {
 
   return (
     <Link
-      to={`/user/${user.id}/profile`}
+      to={`/profile/${user.id}`}
       className={cn(
         'h-6 group flex items-center gap-2 text-sm overflow-hidden',
         className

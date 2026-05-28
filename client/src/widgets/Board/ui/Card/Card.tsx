@@ -41,7 +41,7 @@ export function Card({ issue }: CardProps) {
         <div className="flex gap-2">
           <span className="italic">by</span>
           <UserAvatarLink
-            to={`/user/${issue.reporter.id}/profile`}
+            to={`/profile/${issue.reporter.id}`}
             user={issue.reporter}
           />
         </div>

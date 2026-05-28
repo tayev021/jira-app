@@ -20,7 +20,7 @@ export function CardAssignees({ assignees }: CardAssigneesProps) {
               <li key={assignee.id}>
                 <UserAvatarLink
                   key={assignee.id}
-                  to={`/user/${assignee.id}/profile`}
+                  to={`/profile/${assignee.id}`}
                   user={assignee}
                 />
               </li>
