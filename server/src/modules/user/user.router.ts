@@ -10,13 +10,13 @@ import { validateBody } from '../../shared/middleware/validateBody';
 const userRouter = Router();
 
 userRouter.get('/', protect, userController.getUsers);
-userRouter.get('/:userId', protect, userController.getUser);
 userRouter.get(
   '/search',
   protect,
   validateQueryParams(userValidation.searchUsers),
   userController.searchUsers
 );
+userRouter.get('/:userId', protect, userController.getUser);
 userRouter.patch(
   '/avatar',
   protect,
