@@ -1,5 +1,5 @@
 import type { User } from '../../../../../shared/types/User';
-import { Cell } from './Cell';
+import { Table } from '../../../../../shared/ui/Table';
 import { NoUserAvatar, UserLink } from '../../../../../entities/user';
 
 interface AssigneesCellProps {
@@ -9,18 +9,18 @@ interface AssigneesCellProps {
 export function AssigneesCell({ assignees }: AssigneesCellProps) {
   if (assignees.length <= 0) {
     return (
-      <Cell>
+      <Table.Cell>
         <NoUserAvatar className="mr-2" />
         <span className="align-middle">Unassigned</span>
-      </Cell>
+      </Table.Cell>
     );
   }
 
   return (
-    <Cell className="flex flex-col gap-1">
+    <Table.Cell className="flex-col items-start gap-1">
       {assignees.map((assignee) => (
         <UserLink key={assignee.id} user={assignee} />
       ))}
-    </Cell>
+    </Table.Cell>
   );
 }

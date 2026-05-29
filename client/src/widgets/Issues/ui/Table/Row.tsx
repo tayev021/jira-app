@@ -1,6 +1,6 @@
 import type { Issue } from '../../../../shared/types/Issue';
+import { Table } from '../../../../shared/ui/Table';
 import { TitleCell } from './cells/TitleCell';
-import { Cell } from './cells/Cell';
 import { UserLink } from '../../../../entities/user';
 import { AssigneesCell } from './cells/AssigneesCell';
 import { PriorityCell } from './cells/PriorityCell';
@@ -14,17 +14,17 @@ interface TableRowProps {
 
 export function Row({ issue }: TableRowProps) {
   return (
-    <tr className="relative bg-primary-bg hover:bg-primary-light">
+    <Table.Row>
       <TitleCell issue={issue} />
-      <Cell>
+      <Table.Cell>
         <UserLink user={issue.reporter} />
-      </Cell>
+      </Table.Cell>
       <AssigneesCell assignees={issue.assignees} />
       <PriorityCell issue={issue} />
       <StatusCell issue={issue} />
-      <Cell>{formatDate(issue.createdAt)}</Cell>
-      <Cell>{formatDate(issue.updatedAt)}</Cell>
+      <Table.Cell>{formatDate(issue.createdAt)}</Table.Cell>
+      <Table.Cell>{formatDate(issue.updatedAt)}</Table.Cell>
       <ActionsCell issue={issue} />
-    </tr>
+    </Table.Row>
   );
 }

@@ -1,5 +1,5 @@
 import { useIssues } from '../../../entities/issue';
-import { Table } from './Table/Table';
+import { IssuesTable } from './Table/IssuesTable';
 import { NoIssues } from './NoIssues';
 import { Modal } from '../../../shared/ui/Modal';
 import { Button } from '../../../shared/ui/Button';
@@ -15,7 +15,7 @@ export function Issues() {
   return (
     <div className="flex flex-col overflow-hidden">
       <div className="overflow-auto">
-        {issues?.length ? <Table issues={issues || []} /> : <NoIssues />}
+        {issues?.length ? <IssuesTable issues={issues || []} /> : <NoIssues />}
       </div>
       <Modal.Open modalName="create-issue">
         <Button className="flex items-center gap-2 mt-4 mb-2 px-2 py-1 mx-auto border border-gray-primary rounded-sm text-gray-primary shadow-sm hover:shadow-lg">

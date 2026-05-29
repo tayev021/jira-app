@@ -1,5 +1,5 @@
 import type { Issue } from '../../../../../shared/types/Issue';
-import { Cell } from './Cell';
+import { Table } from '../../../../../shared/ui/Table';
 import { UpdateIssuePriority } from '../../../../../features/updateIssuePriority';
 
 interface PriorityCellProps {
@@ -8,8 +8,8 @@ interface PriorityCellProps {
 
 export function PriorityCell({ issue }: PriorityCellProps) {
   return (
-    <Cell>
+    <Table.Cell>
       <UpdateIssuePriority issue={issue} />
-    </Cell>
+    </Table.Cell>
   );
 }

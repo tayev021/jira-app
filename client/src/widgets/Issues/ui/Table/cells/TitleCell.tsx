@@ -1,6 +1,6 @@
 import type { Issue } from '../../../../../shared/types/Issue';
 import { Link, useLocation } from 'react-router';
-import { Cell } from './Cell';
+import { Table } from '../../../../../shared/ui/Table';
 
 interface TitleCellProps {
   issue: Issue;
@@ -10,7 +10,7 @@ export function TitleCell({ issue }: TitleCellProps) {
   const location = useLocation();
 
   return (
-    <Cell className="sticky left-0 border-l-2 bg-inherit z-10">
+    <Table.Cell className="sticky left-0 bg-primary-bg z-10">
       <Link
         to={`/app/workspace/${issue.workspaceId}/issues/${issue.id}`}
         state={{ backgroundLocation: location }}
@@ -18,7 +18,9 @@ export function TitleCell({ issue }: TitleCellProps) {
       >
         {issue.slug}
       </Link>
-      <span>{issue.title}</span>
-    </Cell>
+      <span className="border-b-2 border-transparent truncate">
+        {issue.title}
+      </span>
+    </Table.Cell>
   );
 }

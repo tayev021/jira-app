@@ -1,6 +1,6 @@
-import { UpdateIssueStatus } from '../../../../../features/updateIssueStatus';
 import type { Issue } from '../../../../../shared/types/Issue';
-import { Cell } from './Cell';
+import { Table } from '../../../../../shared/ui/Table';
+import { UpdateIssueStatus } from '../../../../../features/updateIssueStatus';
 
 interface StatusCellProps {
   issue: Issue;
@@ -8,8 +8,8 @@ interface StatusCellProps {
 
 export function StatusCell({ issue }: StatusCellProps) {
   return (
-    <Cell className="w-38">
+    <Table.Cell>
       <UpdateIssueStatus issue={issue} />
-    </Cell>
+    </Table.Cell>
   );
 }
