@@ -38,11 +38,11 @@ export function Column({ status, issues }: ColumnProps) {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="sticky top-0 flex items-center p-2 border-b border-gray-primary-light rounded-md bg-secondary-bg shadow-sm z-10">
-        <h4 className="font-semibold text-base text-gray-primary uppercase leading-none">
+      <div className="sticky top-0 h-8 flex items-center p-2 rounded-md bg-primary shadow-sm z-10">
+        <h4 className="font-semibold text-base text-secondary-text uppercase leading-none">
           {status}
         </h4>
-        <span className="px-1 ml-2 rounded-sm font-semibold text-gray-primary bg-gray-primary-light">
+        <span className="px-1 ml-2 rounded-sm font-semibold text-gray-primary bg-secondary-bg">
           {issues.length}
         </span>
       </div>

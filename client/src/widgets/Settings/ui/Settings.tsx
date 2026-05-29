@@ -18,7 +18,7 @@ export function Settings() {
   return (
     <ul className="max-w-140 mx-auto">
       <li className="flex flex-col items-center gap-2 p-4 border border-gray-primary-light rounded-sm shadow-sm">
-        <h4 className="font-semibold text-base text-center text-purple-primary">
+        <h4 className="font-semibold text-base text-center text-primary">
           Delete Workspace
         </h4>
         <p className="text-center">

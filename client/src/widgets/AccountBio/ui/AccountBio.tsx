@@ -9,8 +9,8 @@ export function AccountBio() {
   if (!currentUser) return null;
 
   return (
-    <div className="p-5 border border-gray-primary-light rounded-md shadow-md">
-      <h4 className="mb-2 font-semibold text-xl text-purple-primary text-center">
+    <div className="p-5 border border-gray-primary-light rounded-md shadow-sm">
+      <h4 className="mb-2 font-semibold text-xl text-primary text-center">
         Bio
       </h4>
       <div className="grid grid-cols-[min-content_minmax(100px,1fr)] gap-5">

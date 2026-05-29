@@ -22,7 +22,7 @@ export function InviteMember() {
   return (
     <>
       <Modal.Open modalName={`search-users`}>
-        <Button className="flex items-center gap-2 px-2 py-1 mx-auto mb-3 rounded-sm font-medium text-gray-primary hover:text-primary">
+        <Button className="flex items-center gap-2 px-2 py-1 mx-auto mb-6 rounded-sm font-medium text-gray-primary hover:text-primary">
           <HiPlus className="text-lg" />
           Invite Member
         </Button>

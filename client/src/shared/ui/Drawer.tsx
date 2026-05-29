@@ -44,7 +44,7 @@ export function Drawer({ children, className = '', close }: DrawerProps) {
     >
       <div
         className={cn(
-          `fixed top-0 right-0 w-125 max-w-screen h-screen bg-primary-bg shadow-[-6px_0_12px_0_rgba(0,0,0,0.2)] ${isClosing ? 'animate-drawer-close' : 'animate-drawer-open'} overflow-y-auto`,
+          `fixed top-0 right-0 w-125 max-w-screen h-screen bg-primary-bg shadow-l-lg ${isClosing ? 'animate-drawer-close' : 'animate-drawer-open'} overflow-y-auto`,
           className
         )}
       >

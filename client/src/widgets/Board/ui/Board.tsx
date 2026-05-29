@@ -20,7 +20,7 @@ export function Board() {
   );
 
   return (
-    <div className="h-full grid grid-cols-[repeat(3,minmax(200px,400px))] gap-5 pr-3 overflow-y-auto">
+    <div className="h-full grid grid-cols-[repeat(3,minmax(200px,400px))] gap-5 pl-1 pr-3 pb-1 overflow-y-auto">
       {IssueStatuses.map((status) => (
         <Column key={status} status={status} issues={groupedIssues[status]} />
       ))}

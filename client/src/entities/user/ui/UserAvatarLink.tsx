@@ -28,7 +28,7 @@ export function UserAvatarLink({
         <img
           src={`${SERVER_URL}/images/avatars/${user.avatar}`}
           alt={`${user.name} ${user.surname} avatar`}
-          className="h-full aspect-square rounded-full"
+          className="h-full aspect-square rounded-full shadow-sm"
         />
       ) : (
         <span>{initials}</span>

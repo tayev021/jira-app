@@ -7,7 +7,7 @@ export function Welcome() {
   if (!currentUser) return null;
 
   return (
-    <div className="p-5 mb-5 rounded-lg bg-linear-[150deg] from-primary from-40% to-blue-primary to-70%  text-text-secondary">
+    <div className="p-5 mb-5 rounded-lg bg-linear-[150deg] from-primary from-40% to-blue-primary to-70% text-text-secondary shadow-md">
       <h4 className="mb-2 text-lg font-semibold text-secondary-text">
         {formatDate(new Date(), 'WWWW, MMM DD')}
       </h4>

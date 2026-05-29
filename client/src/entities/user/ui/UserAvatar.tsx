@@ -13,7 +13,7 @@ export function UserAvatar({ user, className = '' }: UserAvatarProps) {
   return (
     <div
       className={cn(
-        'w-6 h-6 flex justify-center items-center rounded-full text-xs font-semibold text-secondary-text bg-primary',
+        'w-6 h-6 flex justify-center items-center rounded-full text-xs font-semibold text-secondary-text bg-primary shadow-sm',
         className
       )}
     >

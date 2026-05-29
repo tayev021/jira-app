@@ -14,7 +14,7 @@ interface TableRowProps {
 
 export function Row({ issue }: TableRowProps) {
   return (
-    <tr className="relative bg-primary-bg hover:bg-secondary-bg">
+    <tr className="relative bg-primary-bg hover:bg-primary-light">
       <TitleCell issue={issue} />
       <Cell>
         <UserLink user={issue.reporter} />

@@ -11,8 +11,8 @@ export function Profile() {
   if (!user) return null;
 
   return (
-    <div className="border border-gray-primary-light rounded-md shadow-[2px_4px_10px_rgba(0,0,0,0.2)]">
-      <div className="grid grid-cols-[50px_1fr_50px] gap-2 px-5 py-2 border-b border-gray-primary-light shadow-[0_4px_6px_-6px_rgba(0,0,0,0.5)]">
+    <div className="border border-gray-primary-light rounded-md shadow-lg">
+      <div className="grid grid-cols-[50px_1fr_50px] gap-2 px-5 py-2 border-b border-gray-primary-light shadow-b-md">
         <Button
           className="text-primary hover:text-primary-dark"
           onClick={() => navigate(-1)}

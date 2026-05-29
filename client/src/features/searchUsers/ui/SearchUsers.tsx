@@ -30,7 +30,7 @@ export function SearchUsers({ handleClickUser }: SearchUsersProps) {
       />
       <>
         {query.length <= 0 && (
-          <p className="italic text-center">Type to search</p>
+          <p className="italic text-gray-primary text-center">Type to search</p>
         )}
         {query.length > 0 && isLoading && <div>Loading placeholder...</div>}
         {query.length > 0 &&

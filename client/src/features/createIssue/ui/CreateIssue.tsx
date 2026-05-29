@@ -59,7 +59,7 @@ export function CreateIssue({ close = () => {} }: CreateIssueProps) {
   };
 
   return (
-    <div className="w-150 min-h-90 rounded-lg shadow-[0_4px_8px_0_rgba(0,0,0,0.3)] bg-primary-bg overflow-hidden">
+    <div className="w-150 min-h-90 rounded-lg shadow-lg bg-primary-bg overflow-hidden">
       <Heading close={close} />
       <Form
         className="w-140 py-6 mx-auto border-none"

@@ -14,16 +14,13 @@ export function UserLink({ user, className = '' }: UserLinkProps) {
   return (
     <Link
       to={`/profile/${user.id}`}
-      className={cn(
-        'h-6 group flex items-center gap-2 text-sm overflow-hidden',
-        className
-      )}
+      className={cn('h-6 group flex items-center gap-2 text-sm', className)}
     >
       {user.avatar ? (
         <img
           src={`${SERVER_URL}/images/avatars/${user.avatar}`}
           alt={`${user.name} ${user.surname} avatar`}
-          className="h-full aspect-square rounded-full"
+          className="h-full aspect-square rounded-full shadow-sm"
         />
       ) : (
         <span
