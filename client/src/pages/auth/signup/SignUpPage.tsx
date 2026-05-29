@@ -1,6 +1,14 @@
+import { useAuth } from '../../../shared/hooks/useAuth';
+import { Navigate } from 'react-router';
 import { SignUpForm } from '../../../features/signUp';
 
 export function SignUpPage() {
+  const { currentUser } = useAuth();
+
+  if (currentUser) {
+    return <Navigate to="/app" replace />;
+  }
+
   return (
     <div className="h-full p-5 pt-28 grid grid-cols-[minmax(min-content,1fr)_1fr] gap-5 bg-bg-secondary">
       <div>
