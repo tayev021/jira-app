@@ -110,7 +110,19 @@ class WorkspaceService {
     workspace.memberIds = workspace.memberIds.filter(
       (id) => id.toString() !== memberId
     );
+
     await workspace.save();
+    await Issue.updateMany(
+      {
+        workspaceId,
+        assigneeIds: memberId,
+      },
+      {
+        $pull: {
+          assigneeIds: memberId,
+        },
+      }
+    );
 
     const populatedWorkspace = await workspace.populate<{
       ownerId: User;
