@@ -1,4 +1,4 @@
-import { ApiError, ForbiddenError } from '../../shared/errors';
+import { ApiError, ForbiddenError, NotFoundError } from '../../shared/errors';
 import { mapUser } from '../../shared/utils/mapUser';
 import { removeFile } from '../../shared/utils/removeFile';
 import { Issue } from '../issue/issue.model';
@@ -17,7 +17,7 @@ class UserService {
     const user = await User.findById(data.userId);
 
     if (!user) {
-      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+      throw new NotFoundError('User with this ID does not exist');
     }
 
     return { user: mapUser(user) };
@@ -42,7 +42,7 @@ class UserService {
     );
 
     if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
+      throw new NotFoundError('Workspace with this ID does not exist');
     }
 
     const users = await User.find({
@@ -71,7 +71,7 @@ class UserService {
     const user = await User.findById(currentUserId);
 
     if (!user) {
-      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+      throw new NotFoundError('User with this ID does not exist');
     }
 
     const avatarFileName = `avatar-${uuid()}.jpeg`;
@@ -94,7 +94,7 @@ class UserService {
     const user = await User.findById(currentUserId);
 
     if (!user) {
-      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+      throw new NotFoundError('User with this ID does not exist');
     }
 
     user.bio = bio;

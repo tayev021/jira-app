@@ -7,7 +7,7 @@ import { restrictToMember } from '../../shared/utils/restrictToMember';
 import mongoose from 'mongoose';
 import { generateUniqueSlug } from './utils/generateUniqueSlug';
 import { Issue } from '../issue/issue.model';
-import { ApiError, ForbiddenError } from '../../shared/errors';
+import { ForbiddenError, NotFoundError } from '../../shared/errors';
 import { mapUser } from '../../shared/utils/mapUser';
 
 class WorkspaceService {
@@ -84,7 +84,7 @@ class WorkspaceService {
     const user = await User.findById(userId);
 
     if (!user) {
-      throw new ApiError(400, 'ERROR', 'User with this ID does not exist');
+      throw new NotFoundError('User with this ID does not exist');
     }
 
     const workspace = await findWorkspaceById(workspaceId);
