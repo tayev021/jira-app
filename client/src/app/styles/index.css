@@ -3,6 +3,7 @@
 @theme {
   --color-primary: #1868db;
   --color-primary-dark: #123263;
+  --color-primary-light: #d5e4f8;
 
   --color-red-primary: #ff5630;
   --color-orange-primary: #ff8b00;
@@ -11,7 +12,7 @@
   --color-blue-primary: #00b8d9;
   --color-purple-primary: #6554c0;
   --color-gray-primary: #6b778c;
-  --color-gray-primary-light: #dfe1e6;
+  --color-gray-primary-light: #caced6;
 
   --color-primary-bg: #ffffff;
   --color-secondary-bg: #e9f2fe;
@@ -19,6 +20,18 @@
   --color-primary-text: #292a2e;
   --color-secondary-text: #ffffff;
   --color-tertiary-text: #6b778c;
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 1px 4px 6px 0 rgb(0 0 0 / 0.2);
+  --shadow-lg: 2px 6px 10px 0 rgb(0 0 0 / 0.2);
+
+  --shadow-b-sm: 0 1px 3px -2px rgb(0 0 0 / 0.4);
+  --shadow-b-md: 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-b-lg: 0 6px 10px -6px rgb(0 0 0 / 0.3);
+
+  --shadow-l-sm: -1px 0 3px -2px rgb(0 0 0 / 0.4);
+  --shadow-l-md: -4px 0 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-l-lg: -6px 0 12px -6px rgb(0 0 0 / 0.4);
 
   --animate-drawer-open: drawer-open 0.4s ease-out 1 forwards;
   --animate-drawer-close: drawer-close 0.4s ease-out 1 forwards;
