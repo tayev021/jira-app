@@ -9,7 +9,7 @@ export async function api(
   const { auth = false, ...restOptions } = options;
   let response = await fetchBase(url, restOptions);
 
-  if (response.status === 401 && auth) {
+  if (response.status === 401 || auth) {
     try {
       await refresh();
       response = await fetchBase(url, restOptions);
