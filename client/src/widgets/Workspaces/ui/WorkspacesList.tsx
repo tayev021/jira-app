@@ -4,12 +4,13 @@ import { CreateWorkspace } from '../../../features/createWorkspace/insex';
 import { CreateWorkspaceButton } from './CreateWorkspaceButton';
 import { NoWorkspaces } from './NoWorkspaces';
 import { WorkspaceItem } from './WorkspaceItem';
+import { Loader } from './Loader/Loader';
 
 export function WorkspacesList() {
   const { workspaces = [], isLoading } = useWorkspaces();
   const [isCreating, setIsCreating] = useState(false);
 
-  if (isLoading) return <div>Loading placeholder...</div>;
+  if (isLoading) return <Loader />;
 
   return (
     <ul className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(250px,1fr))]">
