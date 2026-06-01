@@ -4,7 +4,7 @@ import type { ApiResponse } from '../types/ApiResponse';
 import { setAccessToken } from './tokenStore';
 
 export async function refresh() {
-  const response = await fetchBase('/auth/refresh');
+  const response = await fetchBase('/auth/refresh', { isRefresh: true });
 
   let json: unknown;
 
