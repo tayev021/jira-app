@@ -1,8 +1,9 @@
-import { useWorkspaces } from '../../../entities/workspace';
-import { DeleteAccount } from '../../../features/deleteAccount';
 import { useAuth } from '../../../shared/hooks/useAuth';
-import { Button } from '../../../shared/ui/Button';
+import { useWorkspaces } from '../../../entities/workspace';
+import { Navigate } from 'react-router';
 import { Modal } from '../../../shared/ui/Modal';
+import { Button } from '../../../shared/ui/Button';
+import { DeleteAccount } from '../../../features/deleteAccount';
 
 export function AccountSettings() {
   const { currentUser } = useAuth();
@@ -11,7 +12,9 @@ export function AccountSettings() {
     (workspace) => workspace.owner.id === currentUser?.id
   );
 
-  if (!currentUser) return null;
+  if (!currentUser) {
+    return <Navigate to="/auth/signin" replace />;
+  }
 
   return (
     <ul>
