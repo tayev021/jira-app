@@ -1,13 +1,23 @@
-import { useNavigate } from 'react-router';
 import { UserAvatar, useUser } from '../../../entities/user';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
 import { Button } from '../../../shared/ui/Button';
 import { formatDate } from '../../../shared/utils/formatDate';
 import { HiArrowSmallLeft } from 'react-icons/hi2';
+import toast from 'react-hot-toast';
 
 export function Profile() {
-  const { user } = useUser();
+  const { user, isLoading, isError, error } = useUser();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
   if (!user) return null;
 
   return (
