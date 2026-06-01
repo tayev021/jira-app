@@ -1,13 +1,26 @@
-import { ApiError, ForbiddenError } from '../../shared/errors';
+import { ApiError, ForbiddenError, NotFoundError } from '../../shared/errors';
 import { mapUser } from '../../shared/utils/mapUser';
+import { removeFile } from '../../shared/utils/removeFile';
 import { Issue } from '../issue/issue.model';
 import { Workspace } from '../workspace/workspace.model';
 import { User } from './user.model';
+import { v4 as uuid } from 'uuid';
+import sharp from 'sharp';
 
 class UserService {
   getUsers = async () => {
     const users = await User.find();
     return { users: users.map(mapUser) };
+  };
+
+  getUser = async (data: { userId: string }) => {
+    const user = await User.findById(data.userId);
+
+    if (!user) {
+      throw new NotFoundError('User with this ID does not exist');
+    }
+
+    return { user: mapUser(user) };
   };
 
   createUser = async (data: {
@@ -29,7 +42,7 @@ class UserService {
     );
 
     if (!workspace) {
-      throw new ApiError(400, 'ERROR', 'Workspace with this ID does not exist');
+      throw new NotFoundError('Workspace with this ID does not exist');
     }
 
     const users = await User.find({
@@ -45,8 +58,59 @@ class UserService {
     return { users: users.map(mapUser) };
   };
 
+  updateAvatar = async (data: {
+    file: Express.Multer.File | undefined;
+    currentUserId: string;
+  }) => {
+    const { file, currentUserId } = data;
+
+    if (!file) {
+      throw new ApiError(400, 'ERROR', 'Please upload only correct images');
+    }
+
+    const user = await User.findById(currentUserId);
+
+    if (!user) {
+      throw new NotFoundError('User with this ID does not exist');
+    }
+
+    const avatarFileName = `avatar-${uuid()}.jpeg`;
+    const avatarPath = `public/images/avatars/${avatarFileName}`;
+
+    if (user.avatar) {
+      removeFile(`public/images/avatars/${user.avatar}`);
+    }
+
+    user.avatar = avatarFileName;
+
+    await sharp(file.buffer).toFile(avatarPath);
+    await user.save();
+
+    return { user: mapUser(user) };
+  };
+
+  updateBio = async (data: { bio: string; currentUserId: string }) => {
+    const { bio, currentUserId } = data;
+    const user = await User.findById(currentUserId);
+
+    if (!user) {
+      throw new NotFoundError('User with this ID does not exist');
+    }
+
+    user.bio = bio;
+    await user.save();
+
+    return { user: mapUser(user) };
+  };
+
   deleteAccount = async (data: { userId: string }) => {
     const { userId } = data;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new NotFoundError('User with this ID does not exist');
+    }
 
     const ownedWorkspaces = await Workspace.find({ ownerId: userId });
 
@@ -83,7 +147,11 @@ class UserService {
       ),
     ]);
 
-    await User.findByIdAndDelete(userId);
+    if (user.avatar) {
+      removeFile(`public/images/avatars/${user.avatar}`);
+    }
+
+    await user.deleteOne();
   };
 }
 

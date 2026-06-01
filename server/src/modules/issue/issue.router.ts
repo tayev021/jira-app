@@ -13,6 +13,7 @@ issueRouter.get(
   validateQueryParams(issueValidations.getIssuesSchema),
   issueController.getIssues
 );
+issueRouter.get('/me', protect, issueController.getMyIssues);
 issueRouter.get('/:issueId', protect, issueController.getIssue);
 issueRouter.post(
   '/',

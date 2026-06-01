@@ -7,9 +7,19 @@ export async function api(
   options: RequestInit & { auth?: boolean } = {}
 ) {
   const { auth = false, ...restOptions } = options;
+
+  if (auth) {
+    try {
+      await refresh();
+    } catch (error) {
+      clearAccessToken();
+      throw error;
+    }
+  }
+
   let response = await fetchBase(url, restOptions);
 
-  if (response.status === 401 && auth) {
+  if (response.status === 401) {
     try {
       await refresh();
       response = await fetchBase(url, restOptions);

@@ -1,20 +1,21 @@
 import type { ReactNode } from 'react';
-import { cn } from '../../../../../shared/utils/cn';
+import { cn } from '../../utils/cn';
 
 interface CellProps {
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
   className?: string;
 }
 
 export function Cell({ children, className = '' }: CellProps) {
   return (
-    <td
+    <div
+      role="cell"
       className={cn(
-        'max-w-72 px-3 py-1.5 border border-gray-primary-light truncate',
+        'w-full flex items-center px-3 py-1 border border-gray-primary-light truncate',
         className
       )}
     >
       {children}
-    </td>
+    </div>
   );
 }

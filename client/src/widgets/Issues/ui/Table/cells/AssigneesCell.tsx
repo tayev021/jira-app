@@ -1,26 +1,26 @@
+import type { User } from '../../../../../shared/types/User';
+import { Table } from '../../../../../shared/ui/Table';
 import { NoUserAvatar, UserLink } from '../../../../../entities/user';
-import type { IssueUser } from '../../../../../shared/types/IssueUser';
-import { Cell } from './Cell';
 
 interface AssigneesCellProps {
-  assignees: IssueUser[];
+  assignees: User[];
 }
 
 export function AssigneesCell({ assignees }: AssigneesCellProps) {
   if (assignees.length <= 0) {
     return (
-      <Cell>
+      <Table.Cell>
         <NoUserAvatar className="mr-2" />
         <span className="align-middle">Unassigned</span>
-      </Cell>
+      </Table.Cell>
     );
   }
 
   return (
-    <Cell>
+    <Table.Cell className="flex-col items-start gap-1">
       {assignees.map((assignee) => (
         <UserLink key={assignee.id} user={assignee} />
       ))}
-    </Cell>
+    </Table.Cell>
   );
 }

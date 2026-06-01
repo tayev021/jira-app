@@ -1,4 +1,5 @@
 import {
+  HiOutlineCog6Tooth,
   HiOutlineGlobeAlt,
   HiOutlineTableCells,
   HiOutlineUserGroup,
@@ -9,7 +10,7 @@ import { NavTab } from './NavTab';
 export function Nav() {
   return (
     <nav>
-      <ul className="flex border-b border-gray-primary-light shadow-[0_4px_6px_-6px_rgba(0,0,0,0.2)]">
+      <ul className="flex border-b border-gray-primary-light shadow-b-md">
         <NavTab to="">
           <HiOutlineGlobeAlt className="text-xl" />
           Summary
@@ -25,6 +26,10 @@ export function Nav() {
         <NavTab to="board">
           <HiOutlineViewColumns className="text-xl" />
           Board
+        </NavTab>
+        <NavTab to="settings">
+          <HiOutlineCog6Tooth className="text-xl" />
+          Settings
         </NavTab>
       </ul>
     </nav>

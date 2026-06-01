@@ -7,7 +7,7 @@ interface CreateWorkspaceButtonProps {
 export function CreateWorkspaceButton({ onClick }: CreateWorkspaceButtonProps) {
   return (
     <li
-      className="flex gap-3 px-3 py-2 border rounded-xl border-gray-primary-light cursor-pointer transition-all hover:bg-secondary-bg hover:shadow-sm"
+      className="flex gap-3 px-3 py-2 border rounded-xl border-gray-primary-light cursor-pointer transition-all hover:bg-secondary-bg shadow-sm"
       onClick={onClick}
     >
       <HiOutlinePlus className="w-10 h-10 text-purple-primary" />

@@ -28,6 +28,9 @@ export function useDeleteMember(memberId: string) {
           };
         }
       );
+      queryClient.invalidateQueries({
+        queryKey: ['issues', workspaceId, currentUser?.id],
+      });
     },
   });
 }

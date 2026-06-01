@@ -7,11 +7,19 @@ import {
   AppHomePage,
   BoardPage,
   IssuesPage,
+  MembersPage,
+  SettingsPage,
   SummaryPage,
 } from '../../pages/app';
 import { WorkspaceLayout } from '../layouts/WorkspaceLayout';
 import { IssueDetails } from '../../widgets/IssueDetails';
-import { MembersPage } from '../../pages/app/workspace';
+import { AccountLayout } from '../layouts/AccountLayout';
+import {
+  AccountBioPage,
+  AccountIssuesPage,
+  AccountSettingsPage,
+} from '../../pages/account';
+import { ProfilePage } from '../../pages/profile';
 
 export function AppRouter() {
   const location = useLocation();
@@ -40,15 +48,19 @@ export function AppRouter() {
               <Route path="board" element={<BoardPage />}>
                 <Route path="issues/:issueId" element={<IssueDetails />} />
               </Route>
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Route>
           <Route path="account" element={<ProtectedRoute />}>
-            <Route index element={<div>Account Page</div>} />
+            <Route element={<AccountLayout />}>
+              <Route index element={<AccountBioPage />} />
+              <Route path="issues" element={<AccountIssuesPage />}>
+                <Route path=":issueId" element={<IssueDetails />} />
+              </Route>
+              <Route path="settings" element={<AccountSettingsPage />} />
+            </Route>
           </Route>
-          <Route
-            path="user/:userId/profile"
-            element={<div>User Profile Page</div>}
-          />
+          <Route path="profile/:userId" element={<ProfilePage />} />
         </Route>
       </Routes>
 
@@ -62,6 +74,7 @@ export function AppRouter() {
             path="/app/workspace/:workspaceId/issues/:issueId"
             element={<IssueDetails />}
           />
+          <Route path="/account/issues/:issueId" element={<IssueDetails />} />
         </Routes>
       )}
     </>

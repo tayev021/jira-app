@@ -9,7 +9,7 @@ export function NoUserAvatar({ className = '' }: NoUserAvatarProps) {
   return (
     <div
       className={cn(
-        'w-6 h-6 relative inline-block rounded-full text-base align-middle text-primary-dark bg-gray-primary-light',
+        'w-6 h-6 relative inline-block rounded-full text-base align-middle text-primary-dark bg-gray-primary-light shadow-sm',
         className
       )}
     >

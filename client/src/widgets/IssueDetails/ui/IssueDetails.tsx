@@ -1,5 +1,8 @@
 import { useIssue } from '../../../entities/issue';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
+import { trim } from '../utils/trim';
 import { Drawer } from '../../../shared/ui/Drawer';
 import { Columns } from './Columns';
 import { Heading } from './Heading';
@@ -10,23 +13,31 @@ import { UpdateIssuePriority } from '../../../features/updateIssuePriority';
 import { UserLink } from '../../../entities/user';
 import { UpdateIssueDescription } from '../../../features/updateIssueDescription';
 import { Assignees } from './Assignees';
+import { AddAssigneeButton } from './AddAssigneeButton';
 import { Actions } from './Actions';
+import toast from 'react-hot-toast';
 
 export function IssueDetails() {
-  const { issue, isLoading } = useIssue();
+  const { issue, isLoading, isError, error } = useIssue();
   const location = useLocation();
   const navigate = useNavigate();
-  const { workspaceId } = useParams();
 
-  if (isLoading) return <div>Loading placeholder...</div>;
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
   if (!issue) return null;
 
   function handleClose() {
     const isBoardPage = location.pathname.includes('board');
+    const trimmedPath = trim(location.pathname);
 
     navigate(
       location.state?.backgroundLocation ||
-        `/app/workspace/${workspaceId}/${isBoardPage ? 'board' : 'issues'}`
+        `${isBoardPage ? trim(trimmedPath) : trimmedPath}`
     );
   }
 
@@ -67,7 +78,8 @@ export function IssueDetails() {
         </div>
         <div>
           <Heading>Assignees</Heading>
-          <Assignees assignees={issue.assignees} />
+          <Assignees issue={issue} />
+          <AddAssigneeButton issue={issue} />
         </div>
       </Columns>
       <Actions issue={issue} />

@@ -4,6 +4,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: User | null;
+      file?: Multer.File;
     }
   }
 }

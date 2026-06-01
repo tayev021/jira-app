@@ -26,6 +26,17 @@ class IssueService {
     return { issues: issues.map(mapIssue) };
   };
 
+  getMyIssues = async (data: { currentUserId: string }) => {
+    const issues = await Issue.find({
+      assigneeIds: data.currentUserId,
+    }).populate<{
+      reporterId: User;
+      assigneeIds: User[];
+    }>(['reporterId', 'assigneeIds']);
+
+    return { issues: issues.map(mapIssue) };
+  };
+
   getIssue = async (data: { issueId: string; currentUserId: string }) => {
     const { issueId, currentUserId } = data;
     const issue = await findIssueById(issueId);
@@ -183,6 +194,16 @@ class IssueService {
       assigneeId,
       'This assignee not a member of this workspace'
     );
+
+    const isAssigned = issue.assigneeIds.includes(
+      new mongoose.Types.ObjectId(assigneeId)
+    );
+
+    if (isAssigned) {
+      throw new ForbiddenError(
+        'This assignee has already been assigned to this issue'
+      );
+    }
 
     issue.assigneeIds.push(new mongoose.Types.ObjectId(assigneeId));
     await issue.save();

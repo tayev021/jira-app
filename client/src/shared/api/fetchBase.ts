@@ -2,17 +2,22 @@ import { getAccessToken } from './tokenStore';
 import { API_URL } from '../constants';
 import { ApiError } from '../utils/ApiError';
 
-export async function fetchBase(url: string, options: RequestInit = {}) {
+export async function fetchBase(
+  url: string,
+  options: RequestInit & { isRefresh?: boolean } = {}
+) {
+  const { isRefresh = false, ...restOptions } = options;
   const accessToken = getAccessToken();
+  const isFormData = restOptions.body instanceof FormData;
   let response: Response;
 
   try {
     response = await fetch(`${API_URL}${url}`, {
-      ...options,
+      ...restOptions,
       headers: {
-        ...options.headers,
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+        ...(isRefresh ? {} : { Authorization: `Bearer ${accessToken}` }),
+        ...restOptions.headers,
       },
       credentials: 'include',
     });

@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import type { User } from '../../../shared/types/User';
 import { cn } from '../../../shared/utils/cn';
+import { SERVER_URL } from '../../../shared/constants';
 
 interface UserLinkProps {
   user: Pick<User, 'id' | 'name' | 'surname' | 'avatar'>;
@@ -12,17 +13,25 @@ export function UserLink({ user, className = '' }: UserLinkProps) {
 
   return (
     <Link
-      to={`/user/${user.id}/profile`}
+      to={`/profile/${user.id}`}
       className={cn('h-6 group flex items-center gap-2 text-sm', className)}
     >
-      <span
-        className={
-          'h-full aspect-square flex justify-center items-center rounded-full font-semibold text-secondary-text bg-primary'
-        }
-      >
-        {initials}
-      </span>
-      <span className="text-[1.05em] group-hover:text-primary">
+      {user.avatar ? (
+        <img
+          src={`${SERVER_URL}/images/avatars/${user.avatar}`}
+          alt={`${user.name} ${user.surname} avatar`}
+          className="h-full aspect-square rounded-full shadow-sm"
+        />
+      ) : (
+        <span
+          className={
+            'h-full aspect-square flex justify-center items-center rounded-full font-semibold text-secondary-text bg-primary'
+          }
+        >
+          {initials}
+        </span>
+      )}
+      <span className="text-[1.05em] group-hover:text-primary truncate">
         {user.name} {user.surname}
       </span>
     </Link>

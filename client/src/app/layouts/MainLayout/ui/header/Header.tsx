@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <header className="shadow-md">
-      <Container className="flex justify-between items-center py-1 px-5">
+      <Container className="flex-row justify-between items-center py-1">
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Jira Logo" className="w-7 h-7" />
           <h2 className="text-xl leading-none">Jira</h2>

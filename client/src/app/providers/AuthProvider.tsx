@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { useMe } from '../../entities/user';
+import { AppLoader } from '../../shared/ui/AppLoader';
 import { AuthContext } from '../../shared/context/AuthContext';
 
 interface AuthProviderProps {
@@ -9,7 +10,7 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const { user, isLoading } = useMe();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <AppLoader />;
 
   return (
     <AuthContext.Provider value={{ currentUser: user, isLoading }}>

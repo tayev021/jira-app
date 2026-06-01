@@ -6,7 +6,7 @@ interface HeadingProps {
 
 export function Heading({ close }: HeadingProps) {
   return (
-    <div className="grid grid-cols-[20px_1fr_20px] gap-2 px-3 py-1.5 shadow-[0_4px_6px_-6px_rgba(0,0,0,0.5)] bg-primary">
+    <div className="grid grid-cols-[20px_1fr_20px] gap-2 px-3 py-1.5 shadow-b-lg bg-primary">
       <button onClick={close} className="cursor-pointer">
         <HiArrowLeft className="text-xl text-secondary-text" />
       </button>
