@@ -106,6 +106,12 @@ class UserService {
   deleteAccount = async (data: { userId: string }) => {
     const { userId } = data;
 
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new NotFoundError('User with this ID does not exist');
+    }
+
     const ownedWorkspaces = await Workspace.find({ ownerId: userId });
 
     if (ownedWorkspaces.length > 0) {
@@ -141,7 +147,11 @@ class UserService {
       ),
     ]);
 
-    await User.findByIdAndDelete(userId);
+    if (user.avatar) {
+      removeFile(`public/images/avatars/${user.avatar}`);
+    }
+
+    await user.deleteOne();
   };
 }
 
