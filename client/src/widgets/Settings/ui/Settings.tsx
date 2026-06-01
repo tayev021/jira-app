@@ -1,17 +1,46 @@
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { useWorkspace } from '../../../entities/workspace';
 import { useIssues } from '../../../entities/issue';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
 import { Modal } from '../../../shared/ui/Modal';
 import { Button } from '../../../shared/ui/Button';
 import { DeleteWorkspace } from '../../../features/deleteWorkspace';
+import toast from 'react-hot-toast';
 
 export function Settings() {
   const { currentUser } = useAuth();
-  const { workspace } = useWorkspace();
-  const { issues } = useIssues();
+  const {
+    workspace,
+    isLoading: isWorkspaceLoading,
+    isError: isWorkspaceError,
+    error: workspaceError,
+  } = useWorkspace();
+  const {
+    issues,
+    isLoading: isIssuesLoading,
+    isError: isIssuesError,
+    error: issuesError,
+  } = useIssues();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isWorkspaceError) {
+      toast.error(workspaceError!.message);
+    }
+  }, [isWorkspaceError, workspaceError]);
+
+  useEffect(() => {
+    if (isIssuesError) {
+      toast.error(issuesError!.message);
+    }
+  }, [isIssuesError, issuesError]);
+
+  if (isWorkspaceLoading || isIssuesLoading) return <Loader className="my-8" />;
+  if (!currentUser) {
+    return <Navigate to="/auth/signin" replace />;
+  }
   if (!workspace) return null;
   if (!issues) return null;
 
@@ -26,12 +55,12 @@ export function Settings() {
           certain
         </p>
 
-        {currentUser?.id !== workspace.owner.id && (
+        {currentUser.id !== workspace.owner.id && (
           <p className="font-medium text-center text-red-primary">
             Only the owner of a workspace can delete it
           </p>
         )}
-        {currentUser?.id === workspace.owner.id && issues.length > 0 && (
+        {currentUser.id === workspace.owner.id && issues.length > 0 && (
           <p className="font-medium text-center text-red-primary">
             You cannot delete a workspace while it contains issues in progress
           </p>
@@ -46,7 +75,10 @@ export function Settings() {
           </Button>
         </Modal.Open>
         <Modal.Window name={`delete-workspace-${workspace.id}`}>
-          <DeleteWorkspace handleSuccess={() => navigate('/app')} />
+          <DeleteWorkspace
+            workspaceName={workspace.name}
+            handleSuccess={() => navigate('/app')}
+          />
         </Modal.Window>
       </li>
     </ul>
