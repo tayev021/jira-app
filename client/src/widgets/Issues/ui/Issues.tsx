@@ -1,16 +1,25 @@
 import { useIssues } from '../../../entities/issue';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
 import { IssuesTable } from './Table/IssuesTable';
 import { NoIssues } from './NoIssues';
 import { Modal } from '../../../shared/ui/Modal';
 import { Button } from '../../../shared/ui/Button';
 import { CreateIssue } from '../../../features/createIssue';
 import { HiPlus } from 'react-icons/hi2';
+import toast from 'react-hot-toast';
 
 export function Issues() {
-  const { issues, isLoading, isError } = useIssues();
+  const { issues, isLoading, isError, error } = useIssues();
 
-  if (isLoading) return <div>Loading placeholder...</div>;
-  if (isError) return <div>Error placeholder...</div>;
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
+  if (isError) return null;
 
   return (
     <div className="flex flex-col overflow-hidden">
