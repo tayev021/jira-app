@@ -1,4 +1,5 @@
 import { useAuth } from '../../../shared/hooks/useAuth';
+import { Navigate } from 'react-router';
 import { UserAvatar } from '../../../entities/user';
 import { UpdateAvatar } from '../../../features/updateAvatar';
 import { UpdateBio } from '../../../features/updateBio';
@@ -6,7 +7,9 @@ import { UpdateBio } from '../../../features/updateBio';
 export function AccountBio() {
   const { currentUser } = useAuth();
 
-  if (!currentUser) return null;
+  if (!currentUser) {
+    return <Navigate to="/auth/signin" replace />;
+  }
 
   return (
     <div className="p-5 border border-gray-primary-light rounded-md shadow-sm">
