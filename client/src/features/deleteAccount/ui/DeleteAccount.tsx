@@ -1,5 +1,7 @@
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { useDeleteAccount } from '../hooks/useDeleteAccount';
+import { useEffect } from 'react';
+import { Navigate } from 'react-router';
 import { Button } from '../../../shared/ui/Button';
 import toast from 'react-hot-toast';
 
@@ -11,7 +13,15 @@ export function DeleteAccount({ close = () => {} }: DeleteAccountProps) {
   const { currentUser } = useAuth();
   const mutation = useDeleteAccount();
 
-  if (!currentUser) return null;
+  useEffect(() => {
+    if (!currentUser) {
+      toast.error('Unable to delete account. Current user is unavailable');
+    }
+  }, [currentUser]);
+
+  if (!currentUser) {
+    return <Navigate to="/auth/signin" replace />;
+  }
 
   const handleDelete = () => {
     mutation.mutate(null, {
