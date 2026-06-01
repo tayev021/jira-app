@@ -1,5 +1,7 @@
 import { useIssue } from '../../../entities/issue';
 import { useLocation, useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
 import { trim } from '../utils/trim';
 import { Drawer } from '../../../shared/ui/Drawer';
 import { Columns } from './Columns';
@@ -13,13 +15,20 @@ import { UpdateIssueDescription } from '../../../features/updateIssueDescription
 import { Assignees } from './Assignees';
 import { AddAssigneeButton } from './AddAssigneeButton';
 import { Actions } from './Actions';
+import toast from 'react-hot-toast';
 
 export function IssueDetails() {
-  const { issue, isLoading } = useIssue();
+  const { issue, isLoading, isError, error } = useIssue();
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading placeholder...</div>;
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
   if (!issue) return null;
 
   function handleClose() {
