@@ -1,9 +1,20 @@
+import { useEffect } from 'react';
 import { useMyIssues } from '../../../entities/issue';
+import { Loader } from '../../../shared/ui/Loader';
 import { Card } from './Card/Card';
 import { Outlet } from 'react-router';
+import toast from 'react-hot-toast';
 
 export function AccountIssues() {
-  const { issues } = useMyIssues();
+  const { issues, isLoading, isError, error } = useMyIssues();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
 
   return (
     <div className="p-5 border border-gray-primary-light rounded-md shadow-md">
