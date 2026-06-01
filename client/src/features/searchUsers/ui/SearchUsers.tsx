@@ -1,7 +1,9 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { useDebounce } from '../../../shared/hooks/useDebounce';
 import { useSearchUsers } from '../hooks/useSearchUsers';
 import { UserItem } from './UserItem';
+import { Loader } from '../../../shared/ui/Loader';
+import toast from 'react-hot-toast';
 
 interface SearchUsersProps {
   handleClickUser: (userId: string) => void;
@@ -10,9 +12,13 @@ interface SearchUsersProps {
 export function SearchUsers({ handleClickUser }: SearchUsersProps) {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 400);
-  const { users, isLoading, isError } = useSearchUsers(debouncedQuery);
+  const { users, isLoading, isError, error } = useSearchUsers(debouncedQuery);
 
-  if (isError) return <div>Error placeholder</div>;
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
 
   function handleClick(userId: string) {
     handleClickUser(userId);
@@ -32,7 +38,7 @@ export function SearchUsers({ handleClickUser }: SearchUsersProps) {
         {query.length <= 0 && (
           <p className="italic text-gray-primary text-center">Type to search</p>
         )}
-        {query.length > 0 && isLoading && <div>Loading placeholder...</div>}
+        {query.length > 0 && isLoading && <Loader className="my-8" />}
         {query.length > 0 &&
           !isLoading &&
           (!users || users.length <= 0 ? (
