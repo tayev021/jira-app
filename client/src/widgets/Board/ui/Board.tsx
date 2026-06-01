@@ -1,13 +1,25 @@
+import { useEffect } from 'react';
 import { useIssues } from '../../../entities/issue';
 import type { Issue } from '../../../shared/types/Issue';
 import {
   IssueStatuses,
   type IssueStatus,
 } from '../../../shared/types/IssueStatus';
+import { Loader } from '../../../shared/ui/Loader';
 import { Column } from './Column';
+import toast from 'react-hot-toast';
 
 export function Board() {
-  const { issues = [] } = useIssues();
+  const { issues = [], isLoading, isError, error } = useIssues();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
+
   const initialGroupedIssues = Object.fromEntries(
     IssueStatuses.map((status) => [status, [] as Issue[]])
   ) as Record<IssueStatus, Issue[]>;
