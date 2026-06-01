@@ -1,13 +1,27 @@
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { useWorkspace } from '../../../entities/workspace';
+import { useEffect } from 'react';
+import { Loader } from '../../../shared/ui/Loader';
 import { UserLink } from '../../../entities/user';
 import { DeleteMember } from '../../../features/deleteMember';
 import { InviteMember } from './InviteMember';
+import { Navigate } from 'react-router';
+import toast from 'react-hot-toast';
 
 export function Members() {
   const { currentUser } = useAuth();
-  const { workspace } = useWorkspace();
+  const { workspace, isLoading, isError, error } = useWorkspace();
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(error!.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) return <Loader className="my-8" />;
+  if (!currentUser) {
+    return <Navigate to="/auth/signin" replace />;
+  }
   if (!workspace) return null;
 
   return (
@@ -44,7 +58,7 @@ export function Members() {
                   className="group flex justify-between items-center gap-5"
                 >
                   <UserLink className="h-8 text-sm" user={member} />
-                  {currentUser?.id === workspace.owner.id && (
+                  {currentUser.id === workspace.owner.id && (
                     <DeleteMember memberId={member.id} />
                   )}
                 </li>
@@ -56,7 +70,7 @@ export function Members() {
             There are no members in this workspace
           </p>
         )}
-        {currentUser?.id === workspace.owner.id && <InviteMember />}
+        {currentUser.id === workspace.owner.id && <InviteMember />}
       </div>
     </div>
   );
