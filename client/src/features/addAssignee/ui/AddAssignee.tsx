@@ -1,9 +1,10 @@
-import toast from 'react-hot-toast';
-import { useWorkspace } from '../../../entities/workspace';
 import type { Issue } from '../../../shared/types/Issue';
+import { useWorkspace } from '../../../entities/workspace';
 import { useAddAssignee } from '../hooks/useAddAssignee';
+import { useEffect } from 'react';
 import { getAvailableAssignees } from '../utils/getAvailableAssignees';
 import { Assignee } from './Assignee';
+import toast from 'react-hot-toast';
 
 interface AddAssigneeProps {
   issue: Issue;
@@ -13,7 +14,15 @@ export function AddAssignee({ issue }: AddAssigneeProps) {
   const { workspace } = useWorkspace();
   const mutation = useAddAssignee(issue.id);
 
-  if (!workspace) throw new Error('No workspace');
+  useEffect(() => {
+    if (!workspace) {
+      toast.error(
+        'Unable to add assignee. This workspace is currently unavailable'
+      );
+    }
+  }, [workspace]);
+
+  if (!workspace) return null;
 
   const availableAssignees = getAvailableAssignees(
     workspace?.members,
