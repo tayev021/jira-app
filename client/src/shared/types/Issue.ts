@@ -14,4 +14,5 @@ export interface Issue {
   priority: IssuePriority;
   createdAt: string;
   updatedAt: string;
+  doneAt: string | null;
 }
