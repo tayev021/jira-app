@@ -15,5 +15,6 @@ export function mapIssue(issue: PopulatedIssue): Issue {
     priority: issue.priority,
     createdAt: issue.createdAt.toISOString(),
     updatedAt: issue.updatedAt.toISOString(),
+    doneAt: issue.doneAt?.toISOString() || null,
   };
 }
