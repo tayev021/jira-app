@@ -14,7 +14,7 @@ interface TableRowProps {
 
 export function Row({ issue }: TableRowProps) {
   return (
-    <Table.Row>
+    <Table.Row className="group/tableRow">
       <TitleCell issue={issue} />
       <Table.Cell>
         <UserLink user={issue.reporter} />
