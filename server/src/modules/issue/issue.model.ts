@@ -19,6 +19,7 @@ export interface Issue {
   priority: IssuePriority;
   createdAt: Date;
   updatedAt: Date;
+  doneAt: Date | null;
 }
 
 export type PopulatedIssue = Omit<Issue, 'reporterId' | 'assigneeIds'> & {
@@ -76,10 +77,24 @@ const issueSchema = new Schema<Issue>(
       enum: IssuePriorities,
       default: 'none',
     },
+    doneAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+issueSchema.pre('save', function () {
+  if (!this.isModified('status')) return;
+
+  if (this.status === 'done') {
+    this.doneAt = new Date();
+  } else {
+    this.doneAt = null;
+  }
+});
 
 export const Issue = model<Issue>('Issue', issueSchema);
