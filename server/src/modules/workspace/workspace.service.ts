@@ -2,6 +2,7 @@ import { Workspace } from './workspace.model';
 import { User } from '../user/user.model';
 import { mapWorkspace } from '../../shared/utils/mapWorkspace';
 import { findWorkspaceById } from '../../shared/utils/findWorkspaceById';
+import { WorkspaceStatistics } from '../../shared/types/WorkspaceStatistics';
 import { restrictToOwner } from '../../shared/utils/restrictToOwner';
 import { restrictToMember } from '../../shared/utils/restrictToMember';
 import mongoose from 'mongoose';
@@ -36,6 +37,85 @@ class WorkspaceService {
     }>(['ownerId', 'memberIds']);
 
     return { workspace: mapWorkspace(populatedWorkspace) };
+  };
+
+  getWorkspaceStatistics = async (data: {
+    workspaceId: string;
+  }): Promise<WorkspaceStatistics> => {
+    const { workspaceId } = data;
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+
+    const [
+      createdInLastWeek,
+      updatedInLastWeek,
+      completedInLastWeek,
+      todoCount,
+      inProgressCount,
+      doneCount,
+      noneCount,
+      lowCount,
+      mediumCount,
+      highCount,
+    ] = await Promise.all([
+      Issue.countDocuments({
+        workspaceId,
+        createdAt: { $gte: weekAgo },
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        updatedAt: { $gte: weekAgo },
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        doneAt: { $gte: weekAgo },
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        status: 'todo',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        status: 'in progress',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        status: 'done',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        priority: 'none',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        priority: 'low',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        priority: 'medium',
+      }),
+      Issue.countDocuments({
+        workspaceId,
+        priority: 'high',
+      }),
+    ]);
+
+    return {
+      createdInLastWeek,
+      updatedInLastWeek,
+      completedInLastWeek,
+      statuses: {
+        todo: todoCount,
+        'in progress': inProgressCount,
+        done: doneCount,
+      },
+      priorities: {
+        none: noneCount,
+        low: lowCount,
+        medium: mediumCount,
+        high: highCount,
+      },
+    };
   };
 
   createWorkspace = async (data: { name: string; currentUserId: string }) => {
