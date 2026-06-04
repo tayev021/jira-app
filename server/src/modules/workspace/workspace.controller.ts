@@ -18,6 +18,13 @@ class WorkspaceController {
     res.status(200).json({ success: true, data: { workspace } });
   });
 
+  getWorkspaceStatistics = catchAsync(async (req: Request, res: Response) => {
+    const workspaceStatistics = await workspaceService.getWorkspaceStatistics({
+      workspaceId: req.params.workspaceId as string,
+    });
+    res.status(200).json({ success: true, data: { workspaceStatistics } });
+  });
+
   createWorkspace = catchAsync(async (req: Request, res: Response) => {
     const { workspace } = await workspaceService.createWorkspace({
       name: req.body.name,
