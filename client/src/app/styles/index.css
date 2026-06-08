@@ -21,7 +21,7 @@
   --color-secondary-text: #ffffff;
   --color-tertiary-text: #6b778c;
 
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.2);
   --shadow-md: 1px 4px 6px 0 rgb(0 0 0 / 0.2);
   --shadow-lg: 2px 6px 10px 0 rgb(0 0 0 / 0.2);
 
