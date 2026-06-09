@@ -10,7 +10,7 @@ export function TitleCell({ issue }: TitleCellProps) {
   const location = useLocation();
 
   return (
-    <Table.Cell className="sticky left-0 bg-primary-bg z-10">
+    <Table.Cell className="sticky left-0 bg-primary-bg z-10 group-hover/tableRow:bg-secondary-bg">
       <Link
         to={`/app/workspace/${issue.workspaceId}/issues/${issue.id}`}
         state={{ backgroundLocation: location }}

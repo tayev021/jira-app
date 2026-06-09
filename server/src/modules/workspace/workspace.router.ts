@@ -7,6 +7,11 @@ import { workspaceValidations } from './workspace.validation';
 const workspaceRouter = Router();
 
 workspaceRouter.get('/', protect, workspaceController.getWorkspaces);
+workspaceRouter.get(
+  '/:workspaceId/statistics',
+  protect,
+  workspaceController.getWorkspaceStatistics
+);
 workspaceRouter.get('/:workspaceId', protect, workspaceController.getWorkspace);
 workspaceRouter.post(
   '/',

@@ -101,7 +101,7 @@ export function SignUpForm({ className = '' }: SignUpFormProps) {
           <Form.InputError>{errors.confirmPassword.message}</Form.InputError>
         )}
       </Form.Field>
-      <Form.Submit disabled={mutation.isPending}>Sign in</Form.Submit>
+      <Form.Submit disabled={mutation.isPending}>Sign up</Form.Submit>
       <p className="text-center">
         Do you have an account?{' '}
         <Link

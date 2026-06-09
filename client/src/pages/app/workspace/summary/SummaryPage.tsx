@@ -1,3 +1,5 @@
+import { Summary } from '../../../../widgets/Summary';
+
 export function SummaryPage() {
-  return <div>SummaryPage</div>;
+  return <Summary />;
 }
