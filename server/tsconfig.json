@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strict": true,
+    "types": ["node", "jest"],
     "typeRoots": ["./node_modules/@types"]
   },
   "ts-node": {
