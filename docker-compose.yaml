@@ -11,6 +11,16 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+  mongo-test:
+    container_name: mongo-test
+    image: mongo:8
+    ports:
+      - '${DB_TEST_PORT}:27017'
+    volumes:
+      - mongo_test_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_TEST_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_TEST_PASSWORD}
   server:
     container_name: server
     depends_on:
@@ -33,6 +43,7 @@ services:
       COOKIE_EXPIRES_IN_DAYS: ${COOKIE_EXPIRES_IN_DAYS}
       ORIGIN: ${ORIGIN}
       MONGO_URI: mongodb://${DB_USER}:${DB_PASSWORD}@mongo:${DB_PORT}/tasks?authSource=admin
+      MONGO_TEST_URI: mongodb://${DB_TEST_USER}:${DB_TEST_PASSWORD}@mongo-test:27017/test?authSource=admin
 
   client:
     container_name: client
@@ -53,3 +64,4 @@ services:
 
 volumes:
   mongo_data:
+  mongo_test_data:
