@@ -48,8 +48,6 @@ export function Summary() {
   }
   if (!workspace || !statistics) return null;
 
-  console.log(statistics);
-
   return (
     <div className="w-full max-w-250 flex flex-col gap-5 px-5 mx-auto">
       <div className="grid grid-cols-2 gap-5">
@@ -77,7 +75,9 @@ export function Summary() {
         <Card>
           <HiOutlinePencilSquare className="w-10 h-10 shrink-0 text-yellow-primary" />
           <div>
-            <h4 className="font-bold">{statistics.updatedInLastWeek} update</h4>
+            <h4 className="font-bold">
+              {statistics.updatedInLastWeek} updated
+            </h4>
             <p className="text-sm text-gray-primary">in the last 7 days</p>
           </div>
         </Card>
