@@ -1,6 +1,5 @@
 import { useAuth } from '../../../shared/hooks/useAuth';
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { Container } from '../../../shared/ui/Container';
 import {
   HiChevronRight,
@@ -13,11 +12,10 @@ import {
 
 export function HomePage() {
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (currentUser) navigate('/app');
-  }, [currentUser, navigate]);
+  if (currentUser) {
+    return <Navigate to="/app" replace />;
+  }
 
   return (
     <div className="h-full overflow-y-auto">

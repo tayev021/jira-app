@@ -1,6 +1,6 @@
 import { useWorkspaces } from '../../../entities/workspace';
 import { useEffect, useState } from 'react';
-import { CreateWorkspace } from '../../../features/createWorkspace/insex';
+import { CreateWorkspace } from '../../../features/createWorkspace';
 import { CreateWorkspaceButton } from './CreateWorkspaceButton';
 import { NoWorkspaces } from './NoWorkspaces';
 import { WorkspaceItem } from './WorkspaceItem';
