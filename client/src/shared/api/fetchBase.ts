@@ -15,9 +15,11 @@ export async function fetchBase(
     response = await fetch(`${API_URL}${url}`, {
       ...restOptions,
       headers: {
-        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
-        ...(isRefresh ? {} : { Authorization: `Bearer ${accessToken}` }),
         ...restOptions.headers,
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+        ...(accessToken && !isRefresh
+          ? { Authorization: `Bearer ${accessToken}` }
+          : {}),
       },
       credentials: 'include',
     });
