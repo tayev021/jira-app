@@ -58,7 +58,8 @@ export function Summary() {
         <Card>
           <HiOutlineUserGroup className="w-10 h-10 shrink-0 text-primary" />
           <h4 className="font-medium text-base text-nowrap">
-            {workspace.members.length} members in workspace
+            {workspace.members.length} member
+            {workspace.members.length > 1 ? 's' : ''} in workspace
           </h4>
         </Card>
       </div>
