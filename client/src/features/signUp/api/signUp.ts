@@ -8,6 +8,7 @@ import { setAccessToken } from '../../../shared/api/tokenStore';
 export async function signUp(signUpData: SignUpSchema): Promise<User> {
   const response = await api('/auth/signup', {
     method: 'POST',
+    requiresAuth: false,
     body: JSON.stringify(signUpData),
   });
 

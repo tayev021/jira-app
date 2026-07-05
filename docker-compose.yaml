@@ -42,7 +42,7 @@ services:
       REFRESH_TOKEN_EXPIRES_IN_DAYS: ${REFRESH_TOKEN_EXPIRES_IN_DAYS}
       COOKIE_EXPIRES_IN_DAYS: ${COOKIE_EXPIRES_IN_DAYS}
       ORIGIN: ${ORIGIN}
-      MONGO_URI: mongodb://${DB_USER}:${DB_PASSWORD}@mongo:${DB_PORT}/tasks?authSource=admin
+      MONGO_URI: mongodb://${DB_USER}:${DB_PASSWORD}@mongo:${DB_PORT}/jira?authSource=admin
       MONGO_TEST_URI: mongodb://${DB_TEST_USER}:${DB_TEST_PASSWORD}@mongo-test:27017/test?authSource=admin
 
   client:
