@@ -4,22 +4,13 @@ import { clearAccessToken } from './tokenStore';
 
 export async function api(
   url: string,
-  options: RequestInit & { auth?: boolean } = {}
+  options: RequestInit & { requiresAuth?: boolean } = {}
 ) {
-  const { auth = false, ...restOptions } = options;
-
-  if (auth) {
-    try {
-      await refresh();
-    } catch (error) {
-      clearAccessToken();
-      throw error;
-    }
-  }
+  const { requiresAuth = true, ...restOptions } = options;
 
   let response = await fetchBase(url, restOptions);
 
-  if (response.status === 401) {
+  if (response.status === 401 && requiresAuth) {
     try {
       await refresh();
       response = await fetchBase(url, restOptions);
