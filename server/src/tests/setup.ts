@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
 
 beforeAll(async () => {
-  const MONGO_TEST_URI = process.env.MONGO_TEST_URI as string;
+  const MONGO_TEST_URI = process.env.MONGO_TEST_URI;
 
-  await mongoose
-    .connect(MONGO_TEST_URI)
-    .then(() => console.log('MongoDB for testing CONNECTED!'))
-    .catch((error) => {
-      console.error('MongoDB connection for testing ERROR!:', error);
-    });
+  if (!MONGO_TEST_URI) {
+    throw new Error('MONGO_TEST_URI is not defined');
+  }
+
+  await mongoose.connect(MONGO_TEST_URI);
+
+  console.log('MongoDB for testing CONNECTED!');
 });
 
 afterAll(async () => {
