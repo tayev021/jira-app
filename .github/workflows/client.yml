@@ -8,7 +8,6 @@ on:
 jobs:
   client:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     defaults:
       run:
         working-directory: client
@@ -17,7 +16,9 @@ jobs:
         uses: actions/checkout@v6
       - name: Build
         run: docker compose build
-      - name: Test
+      - name: Lint Client
+        run: docker compose run --rm client npm run lint
+      - name: Test Client
         run: docker compose run --rm client npm run test
       - name: Cleanup
         if: always()
