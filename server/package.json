@@ -10,8 +10,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint .",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
